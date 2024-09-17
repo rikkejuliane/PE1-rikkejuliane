@@ -191,6 +191,8 @@ input {
   margin-top: 15px;
 }
 
+
+
 /* Media queries */
 @media (max-width: 768px) {
   .post-grid {

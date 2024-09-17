@@ -105,9 +105,7 @@ strong {
   font-weight: 600;
 }
 
-
-
-/* Style the notification box (modal style) */
+/* Style the notification box */
 .notification {
   position: fixed;
   top: 50%;
@@ -126,7 +124,42 @@ strong {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Add a class to hide/show the notification */
+/* Style for delete confirmation */
+.delete-confirmation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  color: #4176a6; /* Change the text color to match the buttons */
+  padding: 30px;
+  font-size: 18px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 900;
+  border-radius: 12px;
+  z-index: 9999;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  min-width: 300px; /* Ensure a minimum width */
+  max-width: 90%; /* Responsive width */
+}
+
+.delete-confirmation button {
+  display: inline-block;
+  width: 100px;
+  margin: 10px 15px; /* Add spacing between buttons */
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  background-color: #4176a6; /* Match button color */
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/* Class to hide/show */
 .hidden {
   display: none;
 }

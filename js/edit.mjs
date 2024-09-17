@@ -230,12 +230,13 @@ function showDeleteConfirmation(postId) {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
     console.log(`Showing delete confirmation for post ID: ${postId}`);  // Log to verify confirmation popup
     deleteConfirmBox.classList.remove('hidden');  // Show the confirmation modal
+    deleteConfirmBox.classList.add('show');  // Explicitly add the show class for visibility
 
     // Attach "Yes" and "No" buttons event handlers
     const yesBtn = document.getElementById('confirm-delete-yes');
     const noBtn = document.getElementById('confirm-delete-no');
 
-    // Remove previous event listeners to avoid duplication
+    // Reset event listeners to avoid duplication
     yesBtn.replaceWith(yesBtn.cloneNode(true));  // Reset "Yes" button
     noBtn.replaceWith(noBtn.cloneNode(true));  // Reset "No" button
 
@@ -254,8 +255,10 @@ function showDeleteConfirmation(postId) {
 function hideDeleteConfirmation() {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
     console.log('Hiding delete confirmation box');  // Log to confirm hiding
-    deleteConfirmBox.classList.add('hidden');  // Hide the modal
+    deleteConfirmBox.classList.remove('show');  // Remove the show class
+    deleteConfirmBox.classList.add('hidden');  // Add the hidden class
 }
+
 
 // Function to delete the post
 async function deletePost(postId) {
