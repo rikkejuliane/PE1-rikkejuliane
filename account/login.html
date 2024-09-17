@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Mediterranean Dream - Login</title>
+        <meta name="description" content="The Mediterranean Dream - Login page">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/login_register.css">
+        <script type="module" src="/js/login.mjs" defer></script>
+    </head>
+    <body>
+        <main>
+            <a href="/index.html">
+                <svg
+                    class="return-login"
+                    width="35"
+                    height="35"
+                    viewBox="0 0 35 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        cx="17.5"
+                        cy="17.5"
+                        r="17.5"
+                        transform="matrix(-1 0 0 1 35 0)"
+                        fill="#D96C4A"
+                        fill-opacity="0.9"
+                    />
+                    <path
+                        d="M19.0552 12.0556L13.6107 17.5L19.0552 22.9445"
+                        stroke="black"
+                        stroke-width="2.33333"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </a>
+            <section class="center-div">
+                <div class="login-register">
+                    <h1 class="h1-register-log">Login</h1>
+                    <form id="login-form">
+                        <label for="email-input">Email:</label>
+                        <input
+                            id="email-input"
+                            type="email"
+                            placeholder="Your email"
+                            required
+                        >
+                        <label for="psw-input">Password:</label>
+                        <input
+                            id="psw-input"
+                            type="password"
+                            placeholder="Your password"
+                            required
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number, one uppercase and lowercase letter, and be at least 8 or more characters long"
+                        >
+                        <div class="btn-center">
+                            <button class="btn-blue" id="sign-in-btn">
+                                <span>SIGN IN</span>
+                                <div class="dot-spinner" id="button-spinner" style="display: none;">
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="login-text">
+                        <p class="p-register-log" id="login-error">Don't have an account?</p>
+                        <a href="/account/register.html" class="link-register-log">REGISTER HERE</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

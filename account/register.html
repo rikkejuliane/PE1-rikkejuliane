@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Mediterranean Dream - Register</title>
+        <meta name="description" content="The Mediterranean Dream - Register page">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/login_register.css">
+        <script type="module" src="/js/register.mjs" defer></script>
+    </head>
+    <body>
+        <main>
+            <section class="center-div">
+                <div class="login-register">
+                    <h1 class="h1-register-log">Register</h1>
+                    <form id="register-form">
+                        <label for="email-input">Email:</label>
+                        <input
+                            id="email-input"
+                            type="email"
+                            placeholder="Your email"
+                            required
+                        >
+                        <label for="name-input">Username:</label>
+                        <input
+                            id="name-input"
+                            type="text"
+                            placeholder="Your username"
+                            required
+                        >
+                        <label for="psw-input">Password:</label>
+                        <input
+                            id="psw-input"
+                            type="password"
+                            placeholder="Your password"
+                            required
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number, one uppercase and lowercase letter, and be at least 8 or more characters long"
+                        >
+                        <div class="btn-center">
+                            <button class="btn-blue" id="register-btn">
+                                <span>REGISTER</span>
+                                <div class="dot-spinner" id="register-button-spinner" style="display: none;">
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                    <div class="dot-spinner__dot"></div>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="login-text">
+                        <p class="p-register-log" id="p-error">Already have an account?</p>
+                        <a href="/account/login.html" class="link-register-log">LOG IN HERE</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

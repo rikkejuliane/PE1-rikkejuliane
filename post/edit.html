@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Mediterranean Dream - Edit page</title>
+        <meta name="description" content="The Mediterranean Dream - Create, edit or delete blogposts">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/edit.css">
+        <script src="/assets/tinymce/tinymce.min.js"></script>
+        <script type="module" src="/js/edit.mjs" defer></script>
+    </head>
+    <body>
+        <header>
+            <section class="main-banner">
+                <a href="/index.html">
+                    <img class="banner-logo" src="/assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
+                </a>
+                <h1 class="h1-edit">
+                    <strong>W</strong>elcome back -
+                    <span id="username"></span>
+                </h1>
+            </section>
+        </header>
+        <main>
+            <section class="section1-edit">
+                <a href="/post/new/index.html" class="orange-btn">NEW POST</a>
+                <button id="logout-btn" class="orange-round-btn">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="none"
+                            stroke="black"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M20 12h-9.5m7.5 3l3-3l-3-3m-5-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-1"
+                        />
+                    </svg>
+                </button>
+            </section>
+            <section class="post-grid" id="post-grid"></section>
+            <!-- Edit Modal (place the modal here before closing the body tag) -->
+            <div id="edit-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2 class="h2-edit">Edit Blog Post</h2>
+                    <label for="edit-image-url">Image banner URL:</label>
+                    <input type="url" id="edit-image-url" placeholder="Enter an image URL">
+                    <label for="edit-title">Title:</label>
+                    <input
+                        type="text"
+                        id="edit-title"
+                        placeholder="Enter post title"
+                        required
+                    >
+                    <div class="text-input-div">
+                        <div id="edit-text-input"></div>
+                    </div>
+                    <label for="edit-tags">Tags:</label>
+                    <input type="text" id="edit-tags" placeholder="Enter tags (comma-separated)">
+                    <button id="save-edit-btn">Save Changes</button>
+                </div>
+            </div>
+            <div id="notification-box" class="notification hidden">
+                Post updated successfully!
+            </div>
+            <div id="delete-confirm-box" class="notification hidden">
+                <p>Are you sure you want to delete this post?</p>
+                <button id="confirm-delete-yes" class="btn-blue">Yes</button>
+                <button id="confirm-delete-no" class="btn-blue">No</button>
+            </div>
+        </main>
+    </body>
+</html>

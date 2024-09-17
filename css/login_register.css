@@ -1,0 +1,104 @@
+.return-login {
+  margin: 40px 0 0 40px;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #4176a6;
+  width: 582px;
+  border-radius: 5px;
+}
+
+#register-form,
+#login-form {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+.h1-register-log {
+  font-weight: 900;
+  margin: 60px;
+}
+
+label {
+  font-family: mulish;
+  font-size: 15px;
+  margin: 20px 0 2px 0;
+}
+
+input {
+  height: 38px;
+  border: #4176a6 1px solid;
+}
+
+.btn-center {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.btn-register-log {
+  width: 140px;
+  height: 40px;
+  font-family: mulish;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  background-color: #4176a6;
+  border: none;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#button-spinner,
+#register-button-spinner {
+  display: none; /* Spinner is hidden initially */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px; /* Adjust to fit within the button */
+  height: 24px;
+}
+
+.btn-register-log span {
+  display: inline-block;
+}
+
+.login-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 80px;
+  margin-bottom: 100px;
+}
+
+.link-register-log {
+  font-size: 18px;
+  text-decoration: none;
+  color: #4176a6;
+  font-weight: 700px;
+}
+
+.p-register-log {
+  font-size: 18px;
+}
+
+#p-error,
+#login-error {
+  width: 215px;
+}

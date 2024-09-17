@@ -1,0 +1,41 @@
+.hero {
+    background-image: url("/assets/alexandre-chambon-aapSemzfsOk-unsplash\ 1.jpg");
+    height: 680px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1-hero {
+  font-size: 124px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+.h1-span {
+  display: block;
+  line-height: 0.9;
+}
+
+.section1-index {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 40px;
+}
+
+.h2-span {
+    display: block;
+    line-height: 1;
+}
+
+.p-index {
+    width: 647px;
+    padding-bottom: 40px;
+    font-size: 25px;
+}
+
+
+
