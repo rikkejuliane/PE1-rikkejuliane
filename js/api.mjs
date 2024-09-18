@@ -14,3 +14,6 @@ export const getPostApiEndpoint = (username, postId) => `${BASE_API_URL}/blog/po
 
 // Delete a post by ID
 export const getDeletePostApiEndpoint = (username, postId) => `${BASE_API_URL}/blog/posts/${username}/${postId}`;
+
+// Get all posts
+export const getAllPostsApiEndpoint = (name) => `${BASE_API_URL}/blog/posts/${name}`;

@@ -8,11 +8,14 @@
         <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
         <link rel="stylesheet" href="./css/styles.css">
         <link rel="stylesheet" href="./css/index.css">
+        <script type="module" src="./js/index.mjs" defer></script>
     </head>
     <body>
         <header>
             <section class="main-banner">
-                <a href="./index.html"><img class="banner-logo" src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo"></a>
+                <a href="./index.html">
+                    <img class="banner-logo" src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
+                </a>
                 <a href="./account/login.html">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -45,33 +48,47 @@
                 <div>
                     <h2>
                         <span class="h2-span">
-                            <strong>W</strong>elcome to
+                            <strong>W</strong>
+                            elcome to
                         </span>
-                        <span class="h2-span">The
-                            <strong>Mediterranean</strong> Dream
+                        <span class="h2-span">
+                            The
+                            <strong>Mediterranean</strong>
+                            Dream
                         </span>
                     </h2>
-                    <p class="p-index">your virtual escape and dedicated
+                    <p class="p-index">
+                        your virtual escape and dedicated
                         <strong>blog</strong>
                         celebrating the sun-kissed shores and timeless beauty of the Mediterranean. Whether you're dreaming of azure waters, historic villages, or mouthwatering cuisine - you're in the right place.
                     </p>
-                    <p class="p-index">On this
-                        <strong>blog</strong>, we explore the vibrant cultures, stunning landscapes, and rich traditions of the Mediterranean region. Join us as we uncover hidden gems in Croatia, Italy, Greece, and beyond. Dive into our stories and let the Mediterranean spirit inspire your next adventure.
+                    <p class="p-index">
+                        On this
+                        <strong>blog</strong>
+                        , we explore the vibrant cultures, stunning landscapes, and rich traditions of the Mediterranean region. Join us as we uncover hidden gems in Croatia, Italy, Greece, and beyond. Dive into our stories and let the Mediterranean spirit inspire your next adventure.
                     </p>
                 </div>
                 <div>
                     <img src="./assets/mukuko-studio-MQdkSBpWPho-unsplash 1-min.jpg" alt="Weathered green door in a white stone building, partially shaded by a leafy tree, with terracotta pots nearby.">
                 </div>
             </section>
+            <section class="carousel-section">
+                <h2>Latest Posts</h2>
+                <div id="carousel-root"></div> <!-- Carousel will be injected here -->
+            </section>
         </main>
         <footer class="footer">
-        <div class="footer-logo">
-            <a href="./index.html"><img  src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo"></a>
-        </div>
-        <div class="footer-center">
-        <p class="p-footer">© Copyright 2024</p>
-    </div>
-        <p class="p-footer"><a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a></p>
+            <div class="footer-logo">
+                <a href="./index.html">
+                    <img src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
+                </a>
+            </div>
+            <div class="footer-center">
+                <p class="p-footer">© Copyright 2024</p>
+            </div>
+            <p class="p-footer">
+                <a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a>
+            </p>
         </footer>
     </body>
 </html>

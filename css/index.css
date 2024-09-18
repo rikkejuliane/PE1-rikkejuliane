@@ -1,9 +1,9 @@
 .hero {
-    background-image: url("/assets/alexandre-chambon-aapSemzfsOk-unsplash\ 1.jpg");
-    height: 680px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-image: url("/assets/alexandre-chambon-aapSemzfsOk-unsplash\ 1.jpg");
+  height: 680px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .h1-hero {
@@ -19,23 +19,129 @@
 }
 
 .section1-index {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 50px;
-    padding: 0 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+  padding: 0 40px;
 }
 
 .h2-span {
-    display: block;
-    line-height: 1;
+  display: block;
+  line-height: 1;
 }
 
 .p-index {
-    width: 647px;
-    padding-bottom: 40px;
-    font-size: 25px;
+  width: 647px;
+  padding-bottom: 40px;
+  font-size: 25px;
 }
 
+/* Carousel */
+.carousel-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
 
+.carousel-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1200px; /* Set a max width for the carousel */
+  width: 100%;
+  overflow: hidden; 
+}
 
+/* Wrapper for all slides */
+.slides-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 40px; /* Space between slides */
+  width: calc(2 * 564px + 40px); /* Allow only 2 slides to be visible at a time */
+  overflow: hidden;
+}
+
+/* Individual slide */
+  .carousel-slide {
+    width: 564px; /* Set exact width for each slide */
+    height: auto; /* Set exact height for each slide */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.carousel-slide img {
+  width: 564px;
+  height: 546px;
+  object-fit: cover;
+}
+
+.carousel-slide p {
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Previous and Next buttons */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-prev {
+  left: 0px;
+}
+
+.carousel-next {
+  right: 0px;
+}
+
+/* Dots container */
+.dots-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+/* Additional CSS for responsive behavior */
+@media (max-width: 768px) {
+  .carousel-slide {
+    flex: 1 0 100%; /* On smaller screens, show one slide at a time */
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+}
