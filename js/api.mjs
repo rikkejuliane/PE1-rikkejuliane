@@ -18,3 +18,5 @@ export const getDeletePostApiEndpoint = (username, postId) => `${BASE_API_URL}/b
 // Get all posts
 export const getAllPostsApiEndpoint = (name) => `${BASE_API_URL}/blog/posts/${name}`;
 
+// Get posts by tag
+export const getAllPostsByTagApiEndpoint = (username, tag) => `${BASE_API_URL}/blog/posts/${username}?_tag=${tag}`;

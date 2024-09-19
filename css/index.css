@@ -58,7 +58,7 @@
   max-width: 1168px; /* Set a max width for the carousel */
   width: 100%;
   margin: 0 auto;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* Wrapper for all slides */
@@ -69,20 +69,22 @@
   margin: 0 auto;
   transition: transform 0.5s ease-in-out;
   gap: 40px; /* Space between slides */
-  width: calc(6 * 564px + 5 * 40px); /* Allow only 2 slides to be visible at a time */
+  width: calc(
+    6 * 564px + 5 * 40px
+  ); /* Allow only 2 slides to be visible at a time */
   overflow: hidden;
 }
 
 /* Individual slide */
-  .carousel-slide {
-    width: 564px; /* Set exact width for each slide */
-    height: auto; /* Set exact height for each slide */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+.carousel-slide {
+  width: 564px; /* Set exact width for each slide */
+  height: auto; /* Set exact height for each slide */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .carousel-slide img {
@@ -92,7 +94,7 @@
 }
 
 .carousel-text-wrapper {
-  background-color: #D3B197; 
+  background-color: #d3b197;
   padding: 10px;
   text-align: center;
   width: 100%;
@@ -102,7 +104,7 @@
 .carousel-text-wrapper p {
   margin: 0;
   font-size: 1.563rem;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   color: #000;
   font-weight: 700;
 }
@@ -125,7 +127,7 @@
 /* Navigation buttons */
 .carousel-prev,
 .carousel-next {
-  background-color: #D96C4A;
+  background-color: #d96c4a;
   color: #000;
   border: none;
   padding: 10px;
@@ -152,27 +154,20 @@
   height: 12px;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: #D96C4A;
+  background-color: #d96c4a;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .dot.active {
-  background-color: #D96C4A;
+  background-color: #d96c4a;
   opacity: 0.5;
 }
 
-
-/* Main blogposts */
 /* Main Blog Section */
 .main-blog-section {
   margin: 40px auto;
   text-align: center;
-}
-
-.h2-blog {
-  font-size: 36px;
-  margin-bottom: 20px;
 }
 
 .blog-filter-container {
@@ -182,10 +177,9 @@
   margin-bottom: 30px;
 }
 
-.blog-filter-container input,
-.blog-filter-container select {
+.blog-filter-container input {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #4178a6;
   border-radius: 20px;
   font-size: 16px;
   width: 200px;
@@ -200,22 +194,32 @@
 }
 
 .blog-card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .blog-card img {
   width: 100%;
   height: auto;
+  display: block; /* Removes any extra spacing for inline elements */
+  margin: 0; /* Remove any potential margin */
+  padding: 0;
+  object-fit: cover;
+}
+
+.blog-text-wrapper {
+  background-color: #d3b197;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  height: 75px;
 }
 
 .blog-card p {
-  font-size: 18px;
+  font-family: Mulish;
+  font-size: 20px;
   font-weight: bold;
-  margin: 10px;
   background-color: #d3b197;
-  padding: 10px;
   text-align: center;
 }
 
@@ -237,6 +241,42 @@
 .pagination button.active {
   background-color: #d96c4a;
   color: #fff;
+}
+
+/* Search and filtering */
+/* Style for the dropdown container */
+.blog-filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  position: relative; /* Ensure relative positioning for dropdown alignment */
+}
+
+.blog-filter-container select {
+  padding: 10px;
+  border: 1px solid #4178a6;
+  border-radius: 20px;
+  font-size: 16px;
+  width: 200px;
+  background-color: #fff;
+  cursor: pointer;
+  z-index: 1; /* Ensure dropdown appears above other elements */
+  appearance: auto;
+}
+
+/* Optional: Make sure options are styled correctly */
+.blog-filter-container select option {
+  padding: 10px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #000;
+}
+
+/* Ensure that the dropdown menu stays above other elements */
+select {
+  z-index: 2;
+  position: relative;
 }
 
 /* MEDIA QUERIES */
