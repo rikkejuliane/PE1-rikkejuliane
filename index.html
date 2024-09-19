@@ -73,8 +73,25 @@
                 </div>
             </section>
             <section class="carousel-section">
-                <h2>Latest Posts</h2>
-                <div id="carousel-root"></div> <!-- Carousel will be injected here -->
+                <h2 class="h2-posts">Latest Posts</h2>
+                <div id="carousel-root"></div>
+                <!-- Carousel will be injected here -->
+            </section>
+            <section class="main-blog-section">
+                <h2 class="h2-blog">Want to see more?
+                    <strong>Read our blog below</strong>
+                </h2>
+                <div class="blog-filter-container">
+                    <input type="text" id="blog-search" placeholder="Search...">
+                    <select id="blog-tags">
+                        <option value="">Tags</option>
+                        <!-- Add your tag options here -->
+                    </select>
+                </div>
+                <div id="blog-grid" class="blog-grid"></div>
+                <!-- Grid for blog posts -->
+                <div id="pagination" class="pagination"></div>
+                <!-- Pagination controls -->
             </section>
         </main>
         <footer class="footer">

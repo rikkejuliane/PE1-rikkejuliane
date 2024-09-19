@@ -17,17 +17,14 @@ export async function fetchLatestPosts(username) {
             }
         });
 
-        // Check if the response is okay
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();
 
-        // Log the API response to inspect the structure
         console.log("API response:", result);
 
-        // Check if result contains 'data' and it's an array
         if (Array.isArray(result.data) && result.data.length > 0) {
             return result.data.slice(0, 6);  // Get only the latest 6 posts
         } else {
@@ -45,41 +42,44 @@ export function createCarousel(posts) {
     const carouselContainer = document.createElement('div');
     carouselContainer.className = 'carousel-container';
 
-    // Create the wrapper for slides
     const slidesWrapper = document.createElement('div');
     slidesWrapper.className = 'slides-wrapper';
 
-    // Generate slides for each post
-    posts.forEach((post, index) => {
-        // Check if the image exists, otherwise use a placeholder image
-        const imageUrl = post.media && post.media.url ? post.media.url : '/assets/placeholder.jpg';
-
+    posts.forEach((post) => {
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
-        slide.innerHTML = `
-            <img src="${imageUrl}" alt="${post.title}" />
-            <p>${post.title}</p>
-        `;
+
+        // Only include an image if the post has a media URL
+        if (post.media && post.media.url) {
+            slide.innerHTML = `
+                <img src="${post.media.url}" alt="${post.title}" />
+                <div class="carousel-text-wrapper">
+                    <p>${post.title}</p>
+                </div>
+            `;
+        } else {
+            slide.innerHTML = `
+                <div class="carousel-text-wrapper">
+                    <p>${post.title}</p>
+                </div>
+            `;
+        }
+
+        slide.addEventListener('click', () => {
+            window.location.href = `/post/index.html?postId=${post.id}`;
+        });
+
         slidesWrapper.appendChild(slide);
     });
 
-    // Append slides wrapper to the main container
+
+
     carouselContainer.appendChild(slidesWrapper);
 
-    // Create navigation dots
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'dots-container';
-    for (let i = 0; i < 3; i++) {  // 3 dots for 3 sets of 2 slides
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        dot.addEventListener('click', () => navigateToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
+    // Create the dots and navigation buttons
+    const navigationContainer = document.createElement('div');
+    navigationContainer.className = 'navigation-container';
 
-    // Append dots container to the carousel
-    carouselContainer.appendChild(dotsContainer);
-
-    // Add previous and next navigation buttons
     const prevButton = document.createElement('button');
     prevButton.className = 'carousel-prev';
     prevButton.innerHTML = '&lt;';
@@ -90,11 +90,21 @@ export function createCarousel(posts) {
     nextButton.innerHTML = '&gt;';
     nextButton.addEventListener('click', nextSlide);
 
-    // Append navigation buttons to the carousel
-    carouselContainer.appendChild(prevButton);
-    carouselContainer.appendChild(nextButton);
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'dots-container';
+    for (let i = 0; i < 3; i++) {  // 3 dots for 3 sets of 2 slides
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.addEventListener('click', () => navigateToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
 
-    // Append the whole carousel to the root container in the HTML
+    navigationContainer.appendChild(prevButton);
+    navigationContainer.appendChild(dotsContainer);
+    navigationContainer.appendChild(nextButton);
+
+    carouselContainer.appendChild(navigationContainer);
+
     document.querySelector('#carousel-root').appendChild(carouselContainer);
 
     let currentIndex = 0;
@@ -115,12 +125,11 @@ export function createCarousel(posts) {
         updateCarousel();
     }
 
-    // Function to update carousel position and active dot
     function updateCarousel() {
-        const offset = -currentIndex * 100;  // Shift by 100% per set of two slides
-        slidesWrapper.style.transform = `translateX(${offset}%)`;
+        const slideWidth = 564 + 40; // Width of one slide + gap between slides
+        const offset = -currentIndex * 2 * slideWidth;  // Move by two slides each time
+        slidesWrapper.style.transform = `translateX(${offset}px)`;
 
-        // Update active dot
         document.querySelectorAll('.dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === currentIndex);
         });
