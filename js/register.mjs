@@ -1,11 +1,11 @@
 import { REGISTER_API_ENDPOINT } from "./api.mjs";
+import { showLoader, hideLoader } from './loader.mjs'; // Import loader functions
 
 const registerForm = document.querySelector('#register-form');
 const emailInput = document.querySelector('#email-input');
 const nameInput = document.querySelector('#name-input');
 const pswInput = document.querySelector('#psw-input');
 const registerBtn = document.getElementById('register-btn');
-const buttonSpinner = document.getElementById('register-button-spinner');
 
 registerForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -17,10 +17,10 @@ async function registerUser() {
     const name = nameInput.value;
     const password = pswInput.value;
 
-    // Transform the button to show the spinner
+    // Show spinner and disable the button
     registerBtn.disabled = true; // Disable the button to prevent multiple clicks
     registerBtn.querySelector('span').style.display = 'none'; // Hide the text
-    buttonSpinner.style.display = 'flex'; // Show the spinner
+    showLoader('register-button-spinner'); // Use loader.mjs to show the spinner
 
     try {
         const customOption = {
@@ -66,6 +66,6 @@ async function registerUser() {
         // Reset button state
         registerBtn.disabled = false; // Re-enable the button
         registerBtn.querySelector('span').style.display = 'inline-block'; // Show the text again
-        buttonSpinner.style.display = 'none'; // Hide the spinner
+        hideLoader('register-button-spinner'); // Use loader.mjs to hide the spinner
     }
 }

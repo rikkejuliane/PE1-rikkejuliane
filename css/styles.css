@@ -154,11 +154,15 @@ strong {
 .dot-spinner {
   --uib-size: 2.8rem;
   --uib-speed: 0.9s;
-  --uib-color: #fff;
-  position: relative;
+  --uib-color: #D96C4A;
+  position: fixed;  /* Make it fixed so it stays in the same spot even when scrolling */
+  top: 50%;         /* Vertically center */
+  left: 50%;        /* Horizontally center */
+  transform: translate(-50%, -50%);  /* Translate to perfectly center the spinner */
+  z-index: 9999;    /* Ensure it stays above other elements */
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   height: var(--uib-size);
   width: var(--uib-size);
 }

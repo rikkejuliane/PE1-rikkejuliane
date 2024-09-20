@@ -1,11 +1,11 @@
 import { LOGIN_API_ENDPOINT } from "./api.mjs";
+import { showLoader, hideLoader } from './loader.mjs'; // Import loader functions
 
 const loginForm = document.querySelector('#login-form');
 const emailInput = document.querySelector('#email-input');
 const pswInput = document.querySelector('#psw-input');
 const loginErrorElement = document.getElementById('login-error');
 const signInBtn = document.getElementById('sign-in-btn');
-const buttonSpinner = document.getElementById('button-spinner');
 
 loginForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -16,10 +16,10 @@ async function loginUser() {
     const email = emailInput.value;
     const password = pswInput.value;
 
-    // Transform the button to show the spinner
+    // Show spinner and disable the button
     signInBtn.disabled = true; // Disable the button to prevent multiple clicks
     signInBtn.querySelector('span').style.display = 'none'; // Hide the text
-    buttonSpinner.style.display = 'flex'; // Show the spinner
+    showLoader('button-spinner'); // Use loader.mjs to show the spinner
 
     try {
         const customOption = {
@@ -55,6 +55,6 @@ async function loginUser() {
         // Reset button state
         signInBtn.disabled = false; // Re-enable the button
         signInBtn.querySelector('span').style.display = 'inline-block'; // Show the text again
-        buttonSpinner.style.display = 'none'; // Hide the spinner
+        hideLoader('button-spinner'); // Use loader.mjs to hide the spinner
     }
 }

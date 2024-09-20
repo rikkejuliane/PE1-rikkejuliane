@@ -1,14 +1,14 @@
 // Show loading-spinner
-export function showLoader() {
-    const loadingSpinner = document.getElementById('loading');
+export function showLoader(elementId = 'loading') {
+    const loadingSpinner = document.getElementById(elementId);
     if (loadingSpinner) {
         loadingSpinner.style.display = 'block';
     }
 }
 
 // Hide loading-spinner
-export function hideLoader() {
-    const loadingSpinner = document.getElementById('loading');
+export function hideLoader(elementId = 'loading') {
+    const loadingSpinner = document.getElementById(elementId);
     if (loadingSpinner) {
         loadingSpinner.style.display = 'none';
     }

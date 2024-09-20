@@ -1,4 +1,5 @@
 import { getPostApiEndpoint, getDeletePostApiEndpoint } from './api.mjs';  // Import the correct API endpoint functions
+import { showLoader, hideLoader } from './loader.mjs';  // Import the loader functions
 
 // Initialize TinyMCE for edit modal
 tinymce.init({
@@ -15,6 +16,7 @@ tinymce.init({
 // Function to fetch and display blog posts
 async function fetchAndDisplayPosts() {
     try {
+        showLoader('page-spinner');  // Show spinner when fetching posts
         const token = localStorage.getItem('accessToken');
         const username = localStorage.getItem('username');
 
@@ -37,21 +39,12 @@ async function fetchAndDisplayPosts() {
         }
 
         const data = await response.json();
-        console.log("Fetched posts:", data);  // Log the posts data to verify
-
-        // Get the grid container
         const postGrid = document.getElementById('post-grid');
+        postGrid.innerHTML = '';  // Clear the grid before adding posts
 
-        // Clear the grid before adding posts
-        postGrid.innerHTML = '';
-
-        // Check if there are any posts
         if (data.data && data.data.length > 0) {
-            // Loop through the blog posts and display them
             data.data.forEach(post => {
-                // Check if media and media.url exist, if not provide a fallback image
-                const imageUrl = post.media && post.media.url ? post.media.url : '/assets/placeholder.jpg'; // Provide a placeholder image path
-
+                const imageUrl = post.media && post.media.url ? post.media.url : '/assets/placeholder.jpg';
                 const postCard = `
                     <div class="post-card">
                         <div class="post-image">
@@ -68,8 +61,6 @@ async function fetchAndDisplayPosts() {
                         </div>
                     </div>
                 `;
-
-                // Insert each post card into the grid
                 postGrid.innerHTML += postCard;
             });
         } else {
@@ -77,6 +68,8 @@ async function fetchAndDisplayPosts() {
         }
     } catch (error) {
         console.error('Error fetching posts:', error);
+    } finally {
+        hideLoader('page-spinner');  // Hide spinner when fetching is done
     }
 }
 
@@ -109,66 +102,63 @@ document.addEventListener('click', async (event) => {
             return;
         }
 
-        // Fetch the blog post data using the correct endpoint
-        const apiEndpoint = getPostApiEndpoint(username, postId);
-        const response = await fetch(apiEndpoint, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        try {
+            showLoader('page-spinner');  // Show spinner while fetching post details
+            const apiEndpoint = getPostApiEndpoint(username, postId);
+            const response = await fetch(apiEndpoint, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-        if (!response.ok) {
-            console.error("Failed to fetch post", response.statusText);
-            return;
+            if (!response.ok) {
+                console.error("Failed to fetch post", response.statusText);
+                return;
+            }
+
+            const post = await response.json();
+            const postDetails = post.data ? post.data : post;
+
+            document.getElementById('edit-title').value = postDetails.title || '';
+            document.getElementById('edit-image-url').value = postDetails.media && postDetails.media.url ? postDetails.media.url : '';
+            document.getElementById('edit-tags').value = Array.isArray(postDetails.tags) ? postDetails.tags.join(', ') : '';
+
+            setTimeout(() => {
+                const editor = tinymce.get('edit-text-input');
+                if (editor) {
+                    editor.setContent(postDetails.body ? postDetails.body : '');
+                }
+            }, 100);
+
+            showModal();
+
+            const saveEditBtn = document.getElementById('save-edit-btn');
+            saveEditBtn.removeEventListener('click', saveChanges);
+            saveEditBtn.addEventListener('click', () => saveChanges(postId));
+        } catch (error) {
+            console.error('Error fetching post details:', error);
+        } finally {
+            hideLoader('page-spinner');  // Hide spinner after post details are fetched
         }
-
-        const post = await response.json();
-        const postDetails = post.data ? post.data : post;  // If data is wrapped under `data`
-
-        // Populate modal with fetched data
-        document.getElementById('edit-title').value = postDetails.title || '';
-        document.getElementById('edit-image-url').value = postDetails.media && postDetails.media.url ? postDetails.media.url : '';
-        document.getElementById('edit-tags').value = Array.isArray(postDetails.tags) ? postDetails.tags.join(', ') : '';
-
-        setTimeout(() => {
-            const editor = tinymce.get('edit-text-input');
-            if (editor) {
-                editor.setContent(postDetails.body ? postDetails.body : '');
-            }
-        }, 100);
-
-        // Show the modal
-        showModal();
-
-        // Attach the click event to the Save Changes button
-        const saveEditBtn = document.getElementById('save-edit-btn');
-        saveEditBtn.removeEventListener('click', saveChanges);  // Ensure old event listeners are removed
-        saveEditBtn.addEventListener('click', () => {
-            console.log("Save button clicked!");  // Add log to verify click
-            saveChanges(postId);  // Call the saveChanges function
-        });
     }
 });
 
 // Function to save the edited post and show the notification
 async function saveChanges(postId) {
-    console.log("Attempting to save changes for post ID:", postId);  // Log to confirm save action is triggered
-
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('accessToken');
     const apiEndpoint = getPostApiEndpoint(username, postId);
 
     const updatedPost = {
         title: document.getElementById('edit-title').value,
-        media: {
-            url: document.getElementById('edit-image-url').value,
-        },
+        media: { url: document.getElementById('edit-image-url').value },
         body: tinymce.get('edit-text-input').getContent(),
         tags: document.getElementById('edit-tags').value.split(',').map(tag => tag.trim())
     };
 
     try {
+        showLoader('page-spinner');  // Show spinner when saving changes
         const response = await fetch(apiEndpoint, {
             method: 'PUT',
             headers: {
@@ -179,46 +169,35 @@ async function saveChanges(postId) {
         });
 
         if (response.ok) {
-            console.log("Post updated successfully!");
-
-            // Show the notification box
             const notificationBox = document.getElementById('notification-box');
-            console.log('Showing notification box');  // Debugging log
             notificationBox.textContent = 'Post updated successfully!';
             notificationBox.classList.remove('hidden');
             notificationBox.classList.add('show');
 
-            // Hide the notification and reload after 5 seconds
             setTimeout(() => {
-                console.log('Hiding notification box');  // Debugging log
                 notificationBox.classList.remove('show');
                 notificationBox.classList.add('hidden');
-
-                // Reload the page to show updated post
-                window.location.reload();
-            }, 5000);  // 5 seconds
+                window.location.reload();  // Reload page after showing notification
+            }, 5000);
         } else {
             const errorData = await response.json();
             alert(`Failed to update post: ${errorData.message || 'Unknown error'}`);
-            console.error("Error updating post:", errorData);
         }
     } catch (error) {
         console.error('Error updating post:', error);
-        alert('An error occurred while updating the post.');
+    } finally {
+        hideLoader('page-spinner');  // Hide spinner after saving changes
     }
 }
 
 // Attach event listeners to Delete buttons
 document.addEventListener('click', (event) => {
-    const deleteBtn = event.target.closest('.delete-btn');  // Ensure we're getting the delete button
-    console.log('Clicked Element:', event.target);  // Log clicked element for debugging
-    console.log('Closest Delete Button:', deleteBtn);  // Log closest delete button for debugging
+    const deleteBtn = event.target.closest('.delete-btn');
 
     if (deleteBtn) {
-        const postId = deleteBtn.getAttribute('data-id');  // Get the correct post ID from the button
-        console.log(`Delete button clicked for post ID: ${postId}`);  // Log to check if delete button is clicked
+        const postId = deleteBtn.getAttribute('data-id');
         if (postId) {
-            showDeleteConfirmation(postId);  // Trigger the delete confirmation popup
+            showDeleteConfirmation(postId);
         } else {
             console.error('No post ID found for delete button');
         }
@@ -228,48 +207,38 @@ document.addEventListener('click', (event) => {
 // Function to show delete confirmation box
 function showDeleteConfirmation(postId) {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
-    console.log(`Showing delete confirmation for post ID: ${postId}`);  // Log to verify confirmation popup
-    deleteConfirmBox.classList.remove('hidden');  // Show the confirmation modal
-    deleteConfirmBox.classList.add('show');  // Explicitly add the show class for visibility
+    deleteConfirmBox.classList.remove('hidden');
+    deleteConfirmBox.classList.add('show');
 
-    // Attach "Yes" and "No" buttons event handlers
     const yesBtn = document.getElementById('confirm-delete-yes');
     const noBtn = document.getElementById('confirm-delete-no');
 
-    // Reset event listeners to avoid duplication
-    yesBtn.replaceWith(yesBtn.cloneNode(true));  // Reset "Yes" button
-    noBtn.replaceWith(noBtn.cloneNode(true));  // Reset "No" button
+    yesBtn.replaceWith(yesBtn.cloneNode(true));
+    noBtn.replaceWith(noBtn.cloneNode(true));
 
-    // Attach the "Yes" button handler to confirm deletion
     document.getElementById('confirm-delete-yes').addEventListener('click', () => {
-        console.log(`Confirmed deletion for post ID: ${postId}`);
-        deletePost(postId);  // Call deletePost function to delete the post
-        hideDeleteConfirmation();  // Hide the modal after clicking "Yes"
+        deletePost(postId);
+        hideDeleteConfirmation();
     });
 
-    // Attach the "No" button handler to cancel the deletion
     document.getElementById('confirm-delete-no').addEventListener('click', hideDeleteConfirmation);
 }
 
 // Function to hide delete confirmation box
 function hideDeleteConfirmation() {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
-    console.log('Hiding delete confirmation box');  // Log to confirm hiding
-    deleteConfirmBox.classList.remove('show');  // Remove the show class
-    deleteConfirmBox.classList.add('hidden');  // Add the hidden class
+    deleteConfirmBox.classList.remove('show');
+    deleteConfirmBox.classList.add('hidden');
 }
-
 
 // Function to delete the post
 async function deletePost(postId) {
-    console.log(`Attempting to delete post with ID: ${postId}`);  // Log the delete action
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('accessToken');
-
-    const apiEndpoint = getDeletePostApiEndpoint(username, postId);  // Use the correct DELETE API endpoint
-    console.log(`API Endpoint for deletion: ${apiEndpoint}`);  // Log the API endpoint for debugging
+    const apiEndpoint = getDeletePostApiEndpoint(username, postId);
 
     try {
+        showLoader('page-spinner');  // Show spinner when deleting post
         const response = await fetch(apiEndpoint, {
             method: 'DELETE',
             headers: {
@@ -278,21 +247,13 @@ async function deletePost(postId) {
         });
 
         if (response.status === 204) {
-            console.log(`Post with ID ${postId} deleted successfully`);  // Log successful deletion
-
-            // Hide the delete confirmation box
-            hideDeleteConfirmation();
-
-            // Remove the post from the DOM
             document.querySelector(`.delete-btn[data-id="${postId}"]`).closest('.post-card').remove();
 
-            // Show success notification
             const notificationBox = document.getElementById('notification-box');
             notificationBox.textContent = 'Post deleted successfully!';
             notificationBox.classList.remove('hidden');
             notificationBox.classList.add('show');
 
-            // Hide notification after 3 seconds
             setTimeout(() => {
                 notificationBox.classList.remove('show');
                 notificationBox.classList.add('hidden');
@@ -303,6 +264,8 @@ async function deletePost(postId) {
     } catch (error) {
         console.error('Error deleting post:', error);
         alert('An error occurred while deleting the post.');
+    } finally {
+        hideLoader('page-spinner');  // Hide spinner after deleting post
     }
 }
 
@@ -311,17 +274,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('username');
     if (username) {
         document.getElementById('username').textContent = username;
-    } else {
-        console.error('No username found in localStorage');
     }
 
     fetchAndDisplayPosts();
 
-    // Add event listener to the logout button
     const logoutButton = document.getElementById('logout-btn');
-    logoutButton.addEventListener('click', () => {
-        logoutUser();
-    });
+    logoutButton.addEventListener('click', () => logoutUser());
 });
 
 // Function to log out the user
