@@ -76,6 +76,10 @@ strong {
   position: relative;
 }
 
+.back-btn {
+  margin: 10px 0 0 40px;
+}
+
 
 
 /* Style the notification box */
@@ -154,8 +158,8 @@ strong {
 .dot-spinner {
   --uib-size: 2.8rem;
   --uib-speed: 0.9s;
-  --uib-color: #D96C4A;
-  position: fixed;  /* Make it fixed so it stays in the same spot even when scrolling */
+  --uib-color: #fff;
+  position: absolute;  /* Make it fixed so it stays in the same spot even when scrolling */
   top: 50%;         /* Vertically center */
   left: 50%;        /* Horizontally center */
   transform: translate(-50%, -50%);  /* Translate to perfectly center the spinner */
@@ -165,6 +169,7 @@ strong {
   justify-content: center;
   height: var(--uib-size);
   width: var(--uib-size);
+  padding: 20px;
 }
 
 .dot-spinner__dot {
@@ -187,7 +192,7 @@ strong {
   transform: scale(0);
   opacity: 0.5;
   animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
+  box-shadow: 0 0 20px rgba(49, 94, 130, 0.8), 0 0 20px rgba(49, 94, 130, 0.8), 0 0 20px rgba(49, 94, 130, 0.8);
 }
 
 .dot-spinner__dot:nth-child(2) {

@@ -1,3 +1,48 @@
+#post-banner {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+#post-title {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 650px;
+  line-height: 84%;
+  padding: 30px 0;
+}
+
+#post-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  width: 650px;
+}
+
+#post-body p,
+#post-body strong,
+#post-body li {
+  font-family: mulish;
+  font-size: 20px;
+}
+
+#post-body img {
+  padding-top: 10px;
+}
+
+#post-meta p{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 50px;
+  font-size: 20px;
+  width: 600px;
+  margin: 0 auto;
+}
+
+
 /* Tooltip container */
 .tooltip {
     position: relative;

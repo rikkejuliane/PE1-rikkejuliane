@@ -1,36 +1,32 @@
-import { getAllPostsApiEndpoint } from './api.mjs';
+import { getAllPostsApiEndpoint, defaultPublicUsername } from './api.mjs';  // Import defaultPublicUsername
 
-// Function to fetch the latest 6 posts from the API, passing the 'name' parameter
+// Function to fetch the latest 6 posts
 export async function fetchLatestPosts(username) {
     try {
         const token = localStorage.getItem('accessToken');
-        if (!token || !username) {
-            console.error("Missing accessToken or username");
-            return [];
+        const headers = { 'Content-Type': 'application/json' };
+
+        // Only add authorization if token exists and the user is logged in
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(getAllPostsApiEndpoint(username), {
+        // Use the logged-in user's username or default public username if logged out
+        const apiEndpoint = getAllPostsApiEndpoint(username || defaultPublicUsername);
+
+        const response = await fetch(apiEndpoint, {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,  // Use token for authenticated request
-                'Content-Type': 'application/json'
-            }
+            headers
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.error(`Error fetching blog posts: ${response.status}`);
+            return [];
         }
 
         const result = await response.json();
-
-        console.log("API response:", result);
-
-        if (Array.isArray(result.data) && result.data.length > 0) {
-            return result.data.slice(0, 6);  // Get only the latest 6 posts
-        } else {
-            console.error("No posts found or unexpected data format: ", result);
-            return [];
-        }
+        console.log("Fetched posts:", result.data);  // Debugging log for fetched posts
+        return result.data ? result.data.slice(0, 6) : [];  // Return latest 6 posts or empty array
     } catch (error) {
         console.error("Error fetching blog posts:", error);
         return [];
@@ -39,6 +35,13 @@ export async function fetchLatestPosts(username) {
 
 // Function to create and display the carousel with the fetched posts
 export function createCarousel(posts) {
+    console.log("Posts for carousel:", posts);  // Debugging log for posts in carousel
+
+    if (posts.length === 0) {
+        console.log("No posts to display in the carousel.");
+        return;
+    }
+
     const carouselContainer = document.createElement('div');
     carouselContainer.className = 'carousel-container';
 
@@ -71,8 +74,6 @@ export function createCarousel(posts) {
 
         slidesWrapper.appendChild(slide);
     });
-
-
 
     carouselContainer.appendChild(slidesWrapper);
 

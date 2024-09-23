@@ -1,5 +1,7 @@
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 
+// Default public username for fetching posts when logged out
+export const defaultPublicUsername = 'rikkejuliane';
 
 // Login & register
 export const REGISTER_API_ENDPOINT = `${BASE_API_URL}/auth/register`;

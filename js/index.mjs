@@ -1,67 +1,91 @@
 import { fetchLatestPosts, createCarousel } from './carousel.mjs';
-import { getAllPostsApiEndpoint, getAllPostsByTagApiEndpoint } from './api.mjs';  // Ensure these API functions are here
+import { getAllPostsApiEndpoint, getAllPostsByTagApiEndpoint, defaultPublicUsername } from './api.mjs';
+import { showLoader, hideLoader } from './loader.mjs';  // Use existing loader functions
 
 document.addEventListener('DOMContentLoaded', async () => {
     const username = localStorage.getItem('username');
+    console.log("Logged-in username:", username || "Not logged in");
 
     // --- Carousel Section ---
     if (document.querySelector('#carousel-root')) {
-        const latestPosts = await fetchLatestPosts(username);
+        showLoader('carousel-spinner');  // Show the spinner for the carousel while loading
 
-        if (latestPosts.length > 0) {
-            createCarousel(latestPosts);  // Create and display the carousel
-        } else {
-            console.log("No posts available to display.");
+        try {
+            // Fetch latest posts using either logged-in username or default public username
+            const latestPosts = await fetchLatestPosts(username || defaultPublicUsername);
+
+            if (latestPosts.length > 0) {
+                console.log("Latest posts for carousel:", latestPosts);  // Debugging log
+                createCarousel(latestPosts);  // Create and display the carousel
+            } else {
+                console.log("No posts available to display in carousel.");
+            }
+        } catch (error) {
+            console.error("Error loading carousel posts:", error);
+        } finally {
+            hideLoader('carousel-spinner');  // Hide the spinner after the carousel has been loaded
         }
     }
 
-    // --- Main Blog Section with Pagination, Search, and Tags ---
+    // --- Blog Grid Section ---
     if (document.querySelector('#blog-grid')) {
-        const allPosts = await fetchBlogPosts(username);  // Fetch all posts
-        const tags = getUniqueTags(allPosts);  // Extract unique tags from posts
-        populateTagDropdown(tags);  // Populate the tag dropdown
+        showLoader('blog-spinner');  // Show the spinner for the blog grid
 
-        const postsPerPage = 12;
-        let currentPage = 1;
+        try {
+            const allPosts = await fetchBlogPosts(username || defaultPublicUsername);  // Fetch all posts
+            if (allPosts.length > 0) {
+                const tags = getUniqueTags(allPosts);  // Extract unique tags from posts
+                populateTagDropdown(tags);  // Populate the tag dropdown
 
-        // Initially display up to 12 posts (as required by the brief)
-        displayPosts(allPosts.slice(0, postsPerPage), currentPage, postsPerPage);
+                const postsPerPage = 12;
+                let currentPage = 1;
 
-        // If there are more than 12 posts, setup pagination
-        if (allPosts.length > postsPerPage) {
-            setupPagination(allPosts, postsPerPage);
-        }
+                // Initially display up to 12 posts
+                displayPosts(allPosts.slice(0, postsPerPage), currentPage, postsPerPage);
 
-        // Set up search functionality
-        const searchInput = document.getElementById('blog-search');
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredPosts = filterPosts(allPosts, searchTerm);
-            displayPosts(filteredPosts.slice(0, postsPerPage), 1, postsPerPage);  // Reset to first page when searching
-            if (filteredPosts.length > postsPerPage) {
-                setupPagination(filteredPosts, postsPerPage);  // Update pagination for filtered results
-            } else {
-                document.getElementById('pagination').innerHTML = '';  // Remove pagination if filtered results < 12
-            }
-        });
-
-        // Set up tag filter functionality
-        const tagDropdown = document.getElementById('blog-tags');
-        tagDropdown.addEventListener('change', async () => {
-            const selectedTag = tagDropdown.value;
-            if (selectedTag) {
-                const filteredPostsByTag = await fetchPostsByTag(username, selectedTag);  // Fetch posts by tag
-                displayPosts(filteredPostsByTag, 1, postsPerPage);  // Display filtered posts by tag
-                if (filteredPostsByTag.length > postsPerPage) {
-                    setupPagination(filteredPostsByTag, postsPerPage);
-                } else {
-                    document.getElementById('pagination').innerHTML = '';  // Remove pagination if filtered results < 12
+                // If there are more than 12 posts, setup pagination
+                if (allPosts.length > postsPerPage) {
+                    setupPagination(allPosts, postsPerPage);
                 }
+
+                // Set up search functionality
+                const searchInput = document.getElementById('blog-search');
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const filteredPosts = filterPosts(allPosts, searchTerm);
+                    displayPosts(filteredPosts.slice(0, postsPerPage), 1, postsPerPage);  // Reset to first page when searching
+                    if (filteredPosts.length > postsPerPage) {
+                        setupPagination(filteredPosts, postsPerPage);  // Update pagination for filtered results
+                    } else {
+                        document.getElementById('pagination').innerHTML = '';  // Remove pagination if filtered results < 12
+                    }
+                });
+
+                // Set up tag filter functionality
+                const tagDropdown = document.getElementById('blog-tags');
+                tagDropdown.addEventListener('change', async () => {
+                    const selectedTag = tagDropdown.value;
+                    if (selectedTag) {
+                        const filteredPostsByTag = await fetchPostsByTag(username || defaultPublicUsername, selectedTag);  // Fetch posts by tag
+                        displayPosts(filteredPostsByTag, 1, postsPerPage);  // Display filtered posts by tag
+                        if (filteredPostsByTag.length > postsPerPage) {
+                            setupPagination(filteredPostsByTag, postsPerPage);
+                        } else {
+                            document.getElementById('pagination').innerHTML = '';  // Remove pagination if filtered results < 12
+                        }
+                    } else {
+                        displayPosts(allPosts.slice(0, postsPerPage), 1, postsPerPage);  // Reset to all posts if no tag is selected
+                        setupPagination(allPosts, postsPerPage);  // Reset pagination for all posts
+                    }
+                });
             } else {
-                displayPosts(allPosts.slice(0, postsPerPage), 1, postsPerPage);  // Reset to all posts if no tag is selected
-                setupPagination(allPosts, postsPerPage);  // Reset pagination for all posts
+                console.log("No posts available to display in blog grid.");
             }
-        });
+        } catch (error) {
+            console.error("Error loading blog posts:", error);
+        } finally {
+            hideLoader('blog-spinner');  // Hide the spinner after the blog posts are loaded
+        }
     }
 });
 
@@ -69,19 +93,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function fetchBlogPosts(username) {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(getAllPostsApiEndpoint(username), {
+        const headers = { 'Content-Type': 'application/json' };
+
+        // Only add authorization if token exists and the user is logged in
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const apiEndpoint = getAllPostsApiEndpoint(username || defaultPublicUsername);
+
+        const response = await fetch(apiEndpoint, {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers
         });
 
-        if (!response.ok) throw new Error(`Error fetching blog posts: ${response.status}`);
+        if (!response.ok) {
+            console.error(`Error fetching blog posts: ${response.status}`);
+            return [];
+        }
+
         const result = await response.json();
-        return result.data;  // Assuming posts are inside the `data` field
+        return result.data || [];  // Return posts or an empty array if none are found
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching blog posts:", error);
         return [];
     }
 }
@@ -90,12 +124,16 @@ async function fetchBlogPosts(username) {
 async function fetchPostsByTag(username, tag) {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(getAllPostsByTagApiEndpoint(username, tag), {
+        const headers = { 'Content-Type': 'application/json' };
+
+        // Only add authorization if token exists and the user is logged in
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(getAllPostsByTagApiEndpoint(username || defaultPublicUsername, tag), {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers
         });
 
         if (!response.ok) throw new Error(`Error fetching posts by tag: ${response.status}`);
@@ -189,4 +227,3 @@ function populateTagDropdown(tags) {
         tagDropdown.appendChild(option);
     });
 }
-

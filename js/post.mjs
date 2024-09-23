@@ -1,13 +1,15 @@
-import { getPostApiEndpoint } from './api.mjs';
+import { getPostApiEndpoint, defaultPublicUsername } from './api.mjs';  // Import defaultPublicUsername
+import { showLoader, hideLoader } from './loader.mjs';  // Import show/hide loader functions
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('username') || defaultPublicUsername;  // Use defaultPublicUsername if logged out
     const urlParams = new URLSearchParams(window.location.search);  // Get URL parameters
     const postId = urlParams.get('postId');  // Extract the postId from the URL
 
     console.log("Extracted postId:", postId);  // Log to see if it's working
 
     if (postId) {
+        showLoader('post-spinner');  // Show the spinner while fetching post
         await fetchAndDisplayPost(postId, username);
     } else {
         console.error("No postId found in the URL");
@@ -18,16 +20,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Function to fetch and display a single post on the page
 async function fetchAndDisplayPost(postId, username) {
     try {
-        const token = localStorage.getItem('accessToken');
-        const apiUrl = getPostApiEndpoint(username, postId);
+        const token = localStorage.getItem('accessToken');  // Get accessToken (if logged in)
+        const apiUrl = getPostApiEndpoint(username, postId);  // Use either the logged-in username or defaultPublicUsername
+
         console.log("Fetching post from API:", apiUrl);  // Log the API URL being used
+
+        // Set up headers; only add Authorization if a token exists (for logged-in users)
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
         const response = await fetch(apiUrl, {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers
         });
 
         if (!response.ok) {
@@ -40,6 +46,8 @@ async function fetchAndDisplayPost(postId, username) {
 
     } catch (error) {
         console.error("Error fetching the post:", error);
+    } finally {
+        hideLoader('post-spinner');  // Hide the spinner after the post is loaded
     }
 }
 
@@ -84,11 +92,10 @@ function displayPost(post) {
         const postUrl = window.location.href;  // Get the current post URL
 
         postMeta.innerHTML = `
-            <hr>  <!-- Line to separate post from meta info -->
-            <p>Published: ${publishedDate} - 
+            <p>Published: ${publishedDate}  
             <a href="#" id="copy-link" title="Copy Link" class="tooltip">
                 <i class="fas fa-link"></i><span class="tooltiptext" id="tooltip-text">Copy Link</span>
-            </a> - 
+            </a> 
             Author: ${authorName}</p>
         `;
 
@@ -100,8 +107,7 @@ function displayPost(post) {
             e.preventDefault();
             navigator.clipboard.writeText(postUrl)
                 .then(() => {
-                    // Show "Copied!" in the tooltip
-                    tooltipText.textContent = 'Copied!';
+                    tooltipText.textContent = 'Copied!';  // Show "Copied!" in the tooltip
                     setTimeout(() => {
                         tooltipText.textContent = 'Copy Link';  // Reset the tooltip text after 2 seconds
                     }, 2000);

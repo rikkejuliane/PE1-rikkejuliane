@@ -75,6 +75,9 @@
   overflow: hidden;
 }
 
+#carousel-root {
+  position: relative;
+}
 /* Individual slide */
 .carousel-slide {
   width: 564px; /* Set exact width for each slide */
@@ -168,6 +171,7 @@
 .main-blog-section {
   margin: 40px auto;
   text-align: center;
+  position: relative;
 }
 
 .blog-filter-container {
@@ -191,6 +195,7 @@
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .blog-card {
