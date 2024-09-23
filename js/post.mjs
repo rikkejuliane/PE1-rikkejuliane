@@ -2,94 +2,107 @@ import { getPostApiEndpoint, defaultPublicUsername } from './api.mjs';  // Impor
 import { showLoader, hideLoader } from './loader.mjs';  // Import show/hide loader functions
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const username = localStorage.getItem('username') || defaultPublicUsername;  // Use defaultPublicUsername if logged out
-    const urlParams = new URLSearchParams(window.location.search);  // Get URL parameters
-    const postId = urlParams.get('postId');  // Extract the postId from the URL
+    const accessToken = localStorage.getItem('accessToken');  // Get accessToken from localStorage
+    const username = localStorage.getItem('username') || defaultPublicUsername;  // Get username from localStorage
 
-    console.log("Extracted postId:", postId);  // Log to see if it's working
+    // Log the access token and username for debugging
+    console.log("AccessToken found in localStorage:", accessToken);
+    console.log("Username found in localStorage:", username);
+
+    // Get the login link element
+    const loginLink = document.getElementById('login-link');
+
+    // SIMPLIFIED LOGIN CHECK: Only check for accessToken
+    if (accessToken) {
+        // User is logged in, change the link to /post/edit.html
+        loginLink.href = '/post/edit.html';
+        console.log("User is logged in. Login link updated to /post/edit.html.");
+    } else {
+        // User is not logged in, set link to /account/login.html
+        loginLink.href = '/account/login.html';
+        console.log("User is not logged in. Login link remains to /account/login.html.");
+    }
+
+    // Fetch post based on postId from the URL
+    const urlParams = new URLSearchParams(window.location.search);  // Get URL parameters
+    const postId = urlParams.get('postId');  // Extract postId from the URL
+
+    console.log("Extracted postId from URL:", postId);
 
     if (postId) {
-        showLoader('post-spinner');  // Show the spinner while fetching post
-        await fetchAndDisplayPost(postId, username);
+        showLoader('post-spinner');  // Show spinner while fetching post
+        await fetchAndDisplayPost(postId, username);  // Fetch and display the post
     } else {
         console.error("No postId found in the URL");
     }
 });
 
-
 // Function to fetch and display a single post on the page
 async function fetchAndDisplayPost(postId, username) {
     try {
-        const token = localStorage.getItem('accessToken');  // Get accessToken (if logged in)
-        const apiUrl = getPostApiEndpoint(username, postId);  // Use either the logged-in username or defaultPublicUsername
+        const token = localStorage.getItem('accessToken');  // Get accessToken if logged in
+        const apiUrl = getPostApiEndpoint(username, postId);  // Use logged-in username or defaultPublicUsername
 
-        console.log("Fetching post from API:", apiUrl);  // Log the API URL being used
+        console.log("Fetching post from API endpoint:", apiUrl);
 
-        // Set up headers; only add Authorization if a token exists (for logged-in users)
+        // Set up headers; only add Authorization if token exists
         const headers = { 'Content-Type': 'application/json' };
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers
-        });
+        const response = await fetch(apiUrl, { method: 'GET', headers });
 
         if (!response.ok) {
             throw new Error(`Failed to fetch post: ${response.status}`);
         }
 
         const post = await response.json();
-        console.log("Fetched post data:", post);  // Log the fetched post data
+        console.log("Fetched post data:", post);  // Log fetched post data
         displayPost(post);
 
     } catch (error) {
         console.error("Error fetching the post:", error);
     } finally {
-        hideLoader('post-spinner');  // Hide the spinner after the post is loaded
+        hideLoader('post-spinner');  // Hide the spinner after loading the post
     }
 }
-
 
 // Function to display the fetched post on the page
 function displayPost(post) {
     const postTitle = document.getElementById('post-title');
-    const postBanner = document.getElementById('post-banner');  // Banner image
+    const postBanner = document.getElementById('post-banner');
     const postBody = document.getElementById('post-body');
-    const postMeta = document.getElementById('post-meta');  // Meta section for date, link icon, author
+    const postMeta = document.getElementById('post-meta');
 
-    console.log("Rendering post:", post);  // Log the post data before rendering
+    console.log("Rendering post on the page:", post);
 
-    // Access the data property in the post object
     const postData = post.data;
 
-    // 1. Display the banner image (if available)
-    if (postBanner) {
-        if (postData.media && postData.media.url) {
-            postBanner.src = postData.media.url;
-            postBanner.alt = postData.media.alt || 'Post banner image';
-            postBanner.style.display = 'block';  // Ensure the banner is displayed
-        } else {
-            postBanner.style.display = 'none';  // Hide banner if no URL is available
-        }
+    // 1. Display the banner image if available
+    if (postBanner && postData.media && postData.media.url) {
+        postBanner.src = postData.media.url;
+        postBanner.alt = postData.media.alt || 'Post banner image';
+        postBanner.style.display = 'block';
+    } else {
+        postBanner.style.display = 'none';
     }
 
     // 2. Display the post title
     if (postTitle) {
-        postTitle.textContent = postData.title || 'Untitled';  // Fallback if title is missing
+        postTitle.textContent = postData.title || 'Untitled';
     }
 
-    // 3. Render the post body (which may contain HTML content from TinyMCE)
+    // 3. Display the post body
     if (postBody) {
-        postBody.innerHTML = postData.body || 'No content available';  // Use innerHTML to render the full body content (with images and paragraphs)
+        postBody.innerHTML = postData.body || 'No content available';
     }
 
-    // 4. Render the post meta information (published date, copy link, author)
+    // 4. Display the post meta information
     if (postMeta) {
-        const publishedDate = new Date(postData.created).toLocaleDateString();  // Format date
+        const publishedDate = new Date(postData.created).toLocaleDateString();
         const authorName = postData.author ? postData.author.name : 'Unknown author';
-        const postUrl = window.location.href;  // Get the current post URL
+        const postUrl = window.location.href;
 
         postMeta.innerHTML = `
             <p>Published: ${publishedDate}  
@@ -107,13 +120,13 @@ function displayPost(post) {
             e.preventDefault();
             navigator.clipboard.writeText(postUrl)
                 .then(() => {
-                    tooltipText.textContent = 'Copied!';  // Show "Copied!" in the tooltip
+                    tooltipText.textContent = 'Copied!';
                     setTimeout(() => {
-                        tooltipText.textContent = 'Copy Link';  // Reset the tooltip text after 2 seconds
+                        tooltipText.textContent = 'Copy Link';
                     }, 2000);
                 })
                 .catch((err) => {
-                    console.error('Failed to copy URL: ', err);
+                    console.error('Failed to copy URL:', err);
                 });
         });
     }

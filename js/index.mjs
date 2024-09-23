@@ -3,8 +3,26 @@ import { getAllPostsApiEndpoint, getAllPostsByTagApiEndpoint, defaultPublicUsern
 import { showLoader, hideLoader } from './loader.mjs';  // Use existing loader functions
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const accessToken = localStorage.getItem('accessToken');
     const username = localStorage.getItem('username');
-    console.log("Logged-in username:", username || "Not logged in");
+
+    // Log the stored token and username for debugging
+    console.log("Stored accessToken:", accessToken);
+    console.log("Stored username:", username);
+
+    // Get the login link element using the ID
+    const loginLink = document.getElementById('login-link');
+
+    // Check if the user is logged in
+    if (accessToken && username) {
+        // User is logged in, change the link to edit.html
+        loginLink.href = './post/edit.html';
+        console.log("User is logged in. Link changed to edit.html.");
+    } else {
+        // User is not logged in, keep the link to login.html
+        loginLink.href = './account/login.html';
+        console.log("User is not logged in. Link remains to login.html.");
+    }
 
     // --- Carousel Section ---
     if (document.querySelector('#carousel-root')) {
