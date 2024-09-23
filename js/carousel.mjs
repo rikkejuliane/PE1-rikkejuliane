@@ -127,7 +127,7 @@ export function createCarousel(posts) {
     }
 
     function updateCarousel() {
-        const slideWidth = 564 + 40; // Width of one slide + gap between slides
+        const slideWidth = 460 + 40; // Width of one slide + gap between slides
         const offset = -currentIndex * 2 * slideWidth;  // Move by two slides each time
         slidesWrapper.style.transform = `translateX(${offset}px)`;
 

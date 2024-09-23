@@ -5,29 +5,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     const accessToken = localStorage.getItem('accessToken');  // Get accessToken from localStorage
     const username = localStorage.getItem('username') || defaultPublicUsername;  // Get username from localStorage
 
-    // Log the access token and username for debugging
-    console.log("AccessToken found in localStorage:", accessToken);
-    console.log("Username found in localStorage:", username);
-
     // Get the login link element
     const loginLink = document.getElementById('login-link');
 
-    // SIMPLIFIED LOGIN CHECK: Only check for accessToken
+    // Check if user is logged in by checking the accessToken
     if (accessToken) {
-        // User is logged in, change the link to /post/edit.html
+        // User is logged in, update the login link to point to the edit page
         loginLink.href = '/post/edit.html';
         console.log("User is logged in. Login link updated to /post/edit.html.");
     } else {
-        // User is not logged in, set link to /account/login.html
+        // User is not logged in, set the link to the login page
         loginLink.href = '/account/login.html';
         console.log("User is not logged in. Login link remains to /account/login.html.");
     }
 
-    // Fetch post based on postId from the URL
-    const urlParams = new URLSearchParams(window.location.search);  // Get URL parameters
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('postId');  // Extract postId from the URL
+    const fromEdit = urlParams.get('fromEdit');  // Check if the user came from the edit page
 
-    console.log("Extracted postId from URL:", postId);
+    // Get the back button element
+    const backButton = document.querySelector('.back-btn').parentElement;
+
+    // Check if the user is logged in and came from the edit page
+    if (accessToken && fromEdit === 'true') {
+        backButton.href = '/post/edit.html';  // Redirect back to the edit page if the user came from edit
+        console.log("User came from the edit page. Back button redirects to edit page.");
+    } else {
+        backButton.href = '/index.html';  // Otherwise, go back to the index page
+        console.log("User did not come from edit page or is not logged in. Back button redirects to index.");
+    }
 
     if (postId) {
         showLoader('post-spinner');  // Show spinner while fetching post

@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 1168px; /* Set a max width for the carousel */
+  max-width: 960px; /* Set a max width for the carousel */
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -70,7 +70,7 @@
   transition: transform 0.5s ease-in-out;
   gap: 40px; /* Space between slides */
   width: calc(
-    6 * 564px + 5 * 40px
+    6 * 460px + 5 * 40px
   ); /* Allow only 2 slides to be visible at a time */
   overflow: hidden;
 }
@@ -80,7 +80,7 @@
 }
 /* Individual slide */
 .carousel-slide {
-  width: 564px; /* Set exact width for each slide */
+  width: 460px; /* Set exact width for each slide */
   height: auto; /* Set exact height for each slide */
   box-sizing: border-box;
   display: flex;
@@ -91,8 +91,8 @@
 }
 
 .carousel-slide img {
-  width: 564px;
-  height: 546px;
+  width: 460px;
+  height: 445px;
   object-fit: cover;
 }
 
@@ -101,12 +101,12 @@
   padding: 10px;
   text-align: center;
   width: 100%;
-  height: 85px;
+  height: 80px;
 }
 
 .carousel-text-wrapper p {
   margin: 0;
-  font-size: 1.563rem;
+  font-size: 1.5rem;
   font-family: "Mulish", sans-serif;
   color: #000;
   font-weight: 700;

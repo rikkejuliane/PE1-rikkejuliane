@@ -56,13 +56,22 @@ async function fetchAndDisplayPosts() {
                         </div>
                         <div class="post-actions">
                             <button class="action-btn edit-btn" data-id="${post.id}"><i class="fa fa-pencil"></i></button>
-                            <button class="action-btn view-btn" data-id="${post.id}"><i class="fa fa-eye"></i></button>
+                            <button class="action-btn view-btn" data-id="${post.id}"><i class="fa fa-eye"></i></button> <!-- View button -->
                             <button class="action-btn delete-btn" data-id="${post.id}"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                 `;
                 postGrid.innerHTML += postCard;
             });
+
+            // Add event listener for view buttons
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (event) => {
+                    const postId = event.target.closest('.view-btn').dataset.id;
+                    window.location.href = `/post/index.html?postId=${postId}&fromEdit=true`;  // Append fromEdit=true to the URL
+                });
+            });
+
         } else {
             postGrid.innerHTML = '<p>No blog posts available.</p>';
         }
