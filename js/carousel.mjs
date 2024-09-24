@@ -127,10 +127,11 @@ export function createCarousel(posts) {
     }
 
     function updateCarousel() {
-        const slideWidth = 460 + 40; // Width of one slide + gap between slides
+        const slide = document.querySelector('.carousel-slide');
+        const slideWidth = slide.offsetWidth + 30; // Add the gap between slides dynamically
         const offset = -currentIndex * 2 * slideWidth;  // Move by two slides each time
         slidesWrapper.style.transform = `translateX(${offset}px)`;
-
+    
         document.querySelectorAll('.dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === currentIndex);
         });

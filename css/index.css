@@ -7,7 +7,7 @@
 }
 
 .h1-hero {
-  font-size: 124px;
+  font-size: 115px;
   font-weight: 900;
   color: #fff;
   text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.7);
@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 960px; /* Set a max width for the carousel */
+  max-width: 960px;/* Set a max width for the carousel */
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -68,9 +68,9 @@
   align-items: center;
   margin: 0 auto;
   transition: transform 0.5s ease-in-out;
-  gap: 40px; /* Space between slides */
+  gap: 30px; /* Space between slides */
   width: calc(
-    6 * 460px + 5 * 40px
+    6 * 460px + 5 * 30px
   ); /* Allow only 2 slides to be visible at a time */
   overflow: hidden;
 }
@@ -80,20 +80,21 @@
 }
 /* Individual slide */
 .carousel-slide {
-  width: 460px; /* Set exact width for each slide */
-  height: auto; /* Set exact height for each slide */
+  width: 100%; /* Let the slide fill the container width */
+  max-width: 460px; /* Maximum width for the slide */
+  height: 525px; /* Set exact height for each slide */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .carousel-slide img {
-  width: 460px;
+  width: 100%;
   height: 445px;
   object-fit: cover;
+  object-position: center;
 }
 
 .carousel-text-wrapper {
@@ -106,7 +107,7 @@
 
 .carousel-text-wrapper p {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 24px;
   font-family: "Mulish", sans-serif;
   color: #000;
   font-weight: 700;
@@ -196,6 +197,7 @@
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
+  justify-content: center;
 }
 
 .blog-card {
@@ -285,18 +287,78 @@ select {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 768px) {
-  .carousel-slide {
-    width: 100%; /* Make slides responsive */
+/* mobile to small tablet */
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  .h1-hero {
+    font-size: 40px;
   }
 
-  .navigation-container {
-    flex-direction: column; /* Stack buttons and dots for smaller screens */
+  .section1-index {
+    flex-direction: column;
+  }
+  
+  h2 {
+    font-size: 35px;
+  }
+  
+  .p-index {
+    width: 90%;
+    font-size: 20px;
   }
 
-  .carousel-prev,
-  .carousel-next {
-    width: 40px;
-    height: 40px;
+  .blog-grid {
+    grid-template-columns: 1fr; /* 1 column for mobile devices */
+    place-items: center;
   }
 }
+ 
+/* tablet and small laptops */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .h1-hero {
+    font-size: 65px;
+  }
+
+  .section1-index {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2 {
+    font-size: 35px;
+  }
+  
+  .p-index {
+    width: 500px;
+    font-size: 20px;
+  }
+
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    place-items: center;
+  }
+}
+
+/* tablet and small laptops */
+@media screen and (min-width: 901px) and (max-width: 1070px) {
+  .h1-hero {
+    font-size: 100px;
+  }
+  
+  h2 {
+    font-size: 35px;
+  }
+  
+  .p-index {
+    width: 500px;
+    font-size: 20px;
+  }
+
+
+  
+}
+ 
+/* laptop to larger desktops */
+@media screen and (min-width: 1071px) and (max-width: 1440px) {}
+ 
+/* larger monitors */
+@media screen and (min-width: 1441px) {}
