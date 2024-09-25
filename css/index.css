@@ -172,7 +172,7 @@
 
 /* Main Blog Section */
 .main-blog-section {
-  margin: 40px auto;
+  margin: 0 auto;
   text-align: center;
   position: relative;
 }
@@ -257,6 +257,7 @@
 .blog-filter-container {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
   gap: 20px;
   margin-bottom: 30px;
   position: relative; /* Ensure relative positioning for dropdown alignment */
@@ -300,12 +301,27 @@ select {
   }
 
   h2 {
-    font-size: 35px;
+    font-size: 30px;
+  }
+
+  .h2-welcome {
+    padding-bottom: 5px;
+  }
+
+  .h2-posts{
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 40px 0 20px 0;
   }
 
   .p-index {
     width: 90%;
-    font-size: 20px;
+    font-size: 15px;
+    padding-bottom: 20px;
   }
 
   /* Carousel */
@@ -354,7 +370,7 @@ select {
   }
 
   h2 {
-    font-size: 35px;
+    font-size: 32px;
   }
 
   .p-index {
