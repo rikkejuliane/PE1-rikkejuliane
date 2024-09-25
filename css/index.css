@@ -43,6 +43,7 @@
 
 /* Carousel */
 .carousel-section {
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,7 +56,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 960px;/* Set a max width for the carousel */
+  max-width: 960px; /* Set a max width for the carousel */
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -88,6 +89,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 }
 
 .carousel-slide img {
@@ -296,14 +298,42 @@ select {
   .section1-index {
     flex-direction: column;
   }
-  
+
   h2 {
     font-size: 35px;
   }
-  
+
   .p-index {
     width: 90%;
     font-size: 20px;
+  }
+
+  /* Carousel */
+  .carousel-container {
+    max-width: 350px;
+  }
+
+  .slides-wrapper {
+    width: calc(6 * 170px + 5 * 10px);
+    gap: 10px;
+  }
+
+  .carousel-slide {
+    max-width: 170px;
+    height: 230px;
+    flex: 0 0 170px;
+  }
+
+  .carousel-slide img {
+    height: 170px;
+  }
+
+  .carousel-text-wrapper {
+    height: 60px;
+  }
+
+  .carousel-text-wrapper p {
+    font-size: 12px;
   }
 
   .blog-grid {
@@ -311,7 +341,7 @@ select {
     place-items: center;
   }
 }
- 
+
 /* tablet and small laptops */
 @media screen and (min-width: 601px) and (max-width: 900px) {
   .h1-hero {
@@ -322,14 +352,40 @@ select {
     display: flex;
     flex-direction: column;
   }
-  
+
   h2 {
     font-size: 35px;
   }
-  
+
   .p-index {
     width: 500px;
     font-size: 20px;
+  }
+
+  /* Carousel */
+  .carousel-container {
+    max-width: 660px;
+  }
+
+  .slides-wrapper {
+    width: calc(6 * 320px + 5 * 20px);
+  }
+
+  .carousel-slide {
+    max-width: 320px;
+    height: 380px;
+  }
+
+  .carousel-slide img {
+    height: 305px;
+  }
+
+  .carousel-text-wrapper {
+    height: 75px;
+  }
+
+  .carousel-text-wrapper p {
+    font-size: 18px;
   }
 
   .blog-grid {
@@ -343,22 +399,21 @@ select {
   .h1-hero {
     font-size: 100px;
   }
-  
+
   h2 {
     font-size: 35px;
   }
-  
+
   .p-index {
     width: 500px;
     font-size: 20px;
   }
-
-
-  
 }
- 
+
 /* laptop to larger desktops */
-@media screen and (min-width: 1071px) and (max-width: 1440px) {}
- 
+@media screen and (min-width: 1071px) and (max-width: 1440px) {
+}
+
 /* larger monitors */
-@media screen and (min-width: 1441px) {}
+@media screen and (min-width: 1441px) {
+}
