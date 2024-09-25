@@ -309,6 +309,9 @@ strong {
     padding: 0 10px;
   }
   
+  .back-btn {
+    margin: 10px 0 0 5px;
+  }
   
   .footer {
     flex-direction: column;

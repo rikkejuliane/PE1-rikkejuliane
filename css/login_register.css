@@ -102,3 +102,41 @@ input {
 #login-error {
   width: 215px;
 }
+
+/* MEDIA QUERIES */
+/* mobile to small tablet */
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  .login-register {
+    width: 350px;
+  }
+
+  #register-form,
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+
+  .login-text {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #p-error,
+#login-error {
+  text-align: center;
+}
+}
+/* tablet and small laptops */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+}
+/* tablet and small laptops */
+@media screen and (min-width: 901px) and (max-width: 1070px) {
+}
+/* laptop to larger desktops */
+@media screen and (min-width: 1071px) and (max-width: 1440px) {
+}
+/* larger monitors */
+@media screen and (min-width: 1441px) {
+}
