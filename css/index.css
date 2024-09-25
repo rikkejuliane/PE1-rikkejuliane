@@ -342,6 +342,8 @@ select {
     font-size: 12px;
   }
 
+  /* Blog-grid */
+
   .blog-grid {
     grid-template-columns: 1fr; /* 1 column for mobile devices */
     place-items: center;

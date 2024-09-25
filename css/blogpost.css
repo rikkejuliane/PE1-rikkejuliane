@@ -8,17 +8,17 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  width: 800px;
+  width: 70%;
   line-height: 84%;
   padding: 30px 0;
 }
 
-#post-body{
+#post-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  width: 800px;
+  width: 70%;
 }
 
 #post-body p,
@@ -32,50 +32,100 @@
   padding-top: 10px;
 }
 
-#post-meta p{
+#post-meta p {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding-top: 50px;
   font-size: 20px;
-  width: 800px;
+  width: 70%;
   margin: 0 auto;
 }
 
-
 /* Tooltip container */
 .tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  margin-left: -50px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when hovering over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Optional: Style the link icon */
+.tooltip i {
+  font-size: 18px;
+  color: #333;
+}
+
+/* MEDIA QUERIES */
+/* mobile to small tablet */
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  #post-title {
+    font-size: 25px;
+    padding: 15px 0;
   }
-  
-  /* Tooltip text */
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 100px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;  /* Position above the icon */
-    left: 50%;
-    margin-left: -50px;
-    opacity: 0;
-    transition: opacity 0.3s;
+
+  #post-body p,
+  #post-body strong,
+  #post-body li,
+  #post-meta p {
+    font-size: 15px;
   }
-  
-  /* Show the tooltip text when hovering over the tooltip container */
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+
+  #post-meta p{
+    flex-direction: column;
   }
-  
-  /* Optional: Style the link icon */
-  .tooltip i {
+
+  #copy-link {
+    padding: 10px;
+  }
+
+}
+
+/* tablet and small laptops */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  #post-title {
+    font-size: 35px;
+    padding: 15px 0;
+  }
+
+  #post-body p,
+  #post-body strong,
+  #post-body li,
+  #post-meta p{
     font-size: 18px;
-    color: #333;
   }
+
+  
+}
+/* tablet and small laptops */
+@media screen and (min-width: 901px) and (max-width: 1070px) {
+}
+/* laptop to larger desktops */
+@media screen and (min-width: 1071px) and (max-width: 1440px) {
+}
+/* larger monitors */
+@media screen and (min-width: 1441px) {
+}
