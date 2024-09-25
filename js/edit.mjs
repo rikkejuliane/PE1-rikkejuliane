@@ -51,7 +51,7 @@ async function fetchAndDisplayPosts() {
                             <img src="${imageUrl}" alt="Post image">
                         </div>
                         <div class="post-content">
-                            <h3 class="post-title">${post.title}</h3>
+                            <h2 class="post-title">${post.title}</h2>
                             <p class="post-date">Posted: ${new Date(post.created).toLocaleDateString()}</p>
                         </div>
                         <div class="post-actions">
