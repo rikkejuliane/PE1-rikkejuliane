@@ -61,6 +61,21 @@ strong {
   align-items: center;
 }
 
+.orange-btn {
+  width: 140px;
+  height: 40px;
+  font-family: mulish;
+  font-size: 18px;
+  font-weight: 900;
+  color: #000;
+  background-color: #d96c4a;
+  border: none;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn-blue {
   width: 140px;
   height: 40px;

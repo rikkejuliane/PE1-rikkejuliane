@@ -66,12 +66,12 @@ input {
 
 #button-spinner,
 #register-button-spinner {
-  display: none; /* Spinner is hidden initially */
+  display: none; 
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 24px; /* Adjust to fit within the button */
+  width: 24px; 
   height: 24px;
 }
 
@@ -128,15 +128,4 @@ input {
   text-align: center;
 }
 }
-/* tablet and small laptops */
-@media screen and (min-width: 601px) and (max-width: 900px) {
-}
-/* tablet and small laptops */
-@media screen and (min-width: 901px) and (max-width: 1070px) {
-}
-/* laptop to larger desktops */
-@media screen and (min-width: 1071px) and (max-width: 1440px) {
-}
-/* larger monitors */
-@media screen and (min-width: 1441px) {
-}
+
