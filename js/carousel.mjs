@@ -1,4 +1,4 @@
-import { getAllPostsApiEndpoint, defaultPublicUsername } from './api.mjs';  // Import defaultPublicUsername
+import { getAllPostsApiEndpoint, defaultPublicUsername } from './api.mjs'; 
 
 // Function to fetch the latest 6 posts
 export async function fetchLatestPosts(username) {

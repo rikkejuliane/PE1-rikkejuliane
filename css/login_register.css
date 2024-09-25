@@ -66,12 +66,12 @@ input {
 
 #button-spinner,
 #register-button-spinner {
-  display: none; 
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 24px; 
+  width: 24px;
   height: 24px;
 }
 
@@ -124,8 +124,7 @@ input {
   }
 
   #p-error,
-#login-error {
-  text-align: center;
+  #login-error {
+    text-align: center;
+  }
 }
-}
-

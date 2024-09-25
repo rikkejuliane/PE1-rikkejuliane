@@ -97,12 +97,3 @@ input {
     font-size: 23px;
   }
 }
-
-/* tablet and small laptops */
-@media screen and (min-width: 901px) and (max-width: 1070px) {}
-
-/* laptop to larger desktops */
-@media screen and (min-width: 1071px) and (max-width: 1440px) {}
-
-/* larger monitors */
-@media screen and (min-width: 1441px) {}

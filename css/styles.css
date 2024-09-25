@@ -15,7 +15,6 @@ body {
   background-color: #fafafa;
 }
 
-
 .main-banner {
   background-color: #4178a6;
   max-width: 100%;
@@ -50,7 +49,6 @@ strong {
 }
 
 /* Buttons */
-
 .orange-round-btn {
   background-color: #d96c4a;
   border: none;
@@ -97,7 +95,7 @@ strong {
   margin: 10px 0 0 40px;
 }
 
-/* Style the notification box */
+/* Style the notifications */
 .notification {
   position: fixed;
   top: 50%;
@@ -116,14 +114,13 @@ strong {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Style for delete confirmation */
 .delete-confirmation {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  color: #4176a6; /* Change the text color to match the buttons */
+  color: #4176a6;
   padding: 30px;
   font-size: 18px;
   font-family: "Mulish", sans-serif;
@@ -131,27 +128,27 @@ strong {
   border-radius: 12px;
   z-index: 9999;
   text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softer shadow */
-  min-width: 300px; /* Ensure a minimum width */
-  max-width: 90%; /* Responsive width */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  max-width: 90%;
 }
 
 .delete-confirmation button {
   display: inline-block;
   width: 100px;
-  margin: 10px 15px; /* Add spacing between buttons */
+  margin: 10px 15px;
   padding: 10px 20px;
   font-size: 16px;
   font-family: "Mulish", sans-serif;
   font-weight: 700;
   color: #fff;
-  background-color: #4176a6; /* Match button color */
+  background-color: #4176a6;
   border: none;
   border-radius: 25px;
   cursor: pointer;
 }
 
-/* Class to hide/show */
+/* Hide/show */
 .hidden {
   display: none;
 }
@@ -174,14 +171,11 @@ strong {
   --uib-size: 2.8rem;
   --uib-speed: 0.9s;
   --uib-color: #fff;
-  position: absolute; /* Make it fixed so it stays in the same spot even when scrolling */
-  top: 50%; /* Vertically center */
-  left: 50%; /* Horizontally center */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Translate to perfectly center the spinner */
-  z-index: 9999; /* Ensure it stays above other elements */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,11 +318,11 @@ strong {
   .main-banner {
     padding: 0 10px;
   }
-  
+
   .back-btn {
     margin: 10px 0 0 5px;
   }
-  
+
   .footer {
     flex-direction: column;
     height: auto;
@@ -345,7 +339,7 @@ strong {
   .back-btn {
     margin: 10px 0 0 20px;
   }
-  
+
   .footer {
     flex-direction: column;
     height: auto;
@@ -368,17 +362,4 @@ strong {
   .p-footer {
     padding: 20px;
   }
-}
-
-/* tablet and small laptops */
-@media screen and (min-width: 901px) and (max-width: 1070px) {
-}
-
-/* laptop to larger desktops */
-@media screen and (min-width: 1071px) and (max-width: 1440px) {
-}
-
-/* larger monitors */
-@media screen and (min-width: 1441px) {
-  
 }
