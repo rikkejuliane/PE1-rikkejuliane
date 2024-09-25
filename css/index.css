@@ -4,6 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;          /* Prevent the image from repeating */
+  background-size: cover;                /* Scale the image to cover the entire container */
+  background-position: center center; 
 }
 
 .h1-hero {
@@ -428,4 +431,8 @@ select {
 
 /* larger monitors */
 @media screen and (min-width: 1441px) {
+  main {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
 }

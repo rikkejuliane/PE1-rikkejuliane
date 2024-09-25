@@ -36,7 +36,7 @@
   border-radius: 10px;
   padding: 4px;
   max-width: 605px;
-  height: 125px;
+  height: auto;
   position: relative;
 }
 
@@ -89,6 +89,11 @@
 
 .delete-btn {
   color: red;
+}
+
+.edit-btn, 
+.view-btn {
+  color: #000;
 }
 
 /* Modal */
@@ -187,7 +192,10 @@ input {
 
   .post-grid {
     grid-template-columns: 1fr; /* Change to 1 column on small screens */
-    
+  }
+
+  .post-date {
+    padding-bottom: 30px;
   }
 }
 /* tablet and small laptops */

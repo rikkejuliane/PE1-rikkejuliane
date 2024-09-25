@@ -94,14 +94,13 @@
     font-size: 15px;
   }
 
-  #post-meta p{
+  #post-meta p {
     flex-direction: column;
   }
 
   #copy-link {
     padding: 10px;
   }
-
 }
 
 /* tablet and small laptops */
@@ -114,18 +113,16 @@
   #post-body p,
   #post-body strong,
   #post-body li,
-  #post-meta p{
+  #post-meta p {
     font-size: 18px;
   }
+}
 
-  
-}
-/* tablet and small laptops */
-@media screen and (min-width: 901px) and (max-width: 1070px) {
-}
-/* laptop to larger desktops */
-@media screen and (min-width: 1071px) and (max-width: 1440px) {
-}
 /* larger monitors */
 @media screen and (min-width: 1441px) {
+  #post-body,
+  #post-meta {
+    max-width: 1008px;
+    margin: 0 auto;
+  }
 }

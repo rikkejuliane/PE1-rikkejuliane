@@ -15,6 +15,7 @@ body {
   background-color: #fafafa;
 }
 
+
 .main-banner {
   background-color: #4178a6;
   max-width: 100%;
@@ -379,4 +380,5 @@ strong {
 
 /* larger monitors */
 @media screen and (min-width: 1441px) {
+  
 }
