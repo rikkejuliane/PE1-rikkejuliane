@@ -17,10 +17,10 @@ This project is for The Mediterranean Dream, a travel-focused blog aimed at insp
 
 
 ### Demo 
-Homepage Demo: 
+Homepage Demo:   
 ![Demo of Index page](https://github.com/user-attachments/assets/336e47f7-de04-4c87-872c-2ecc6acc9b1b)
 
-Admin Demo:
+Admin Demo:  
 ![Demo of Admin pages](https://github.com/user-attachments/assets/567142f5-dd12-4acb-b877-702804d6e23d)
 
 ### Key Features 
