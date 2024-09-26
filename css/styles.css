@@ -157,6 +157,10 @@ strong {
   display: block;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 /* LOADER -  https://uiverse.io/abrahamcalsin/serious-turkey-52 */
 #loading {
   display: none;
