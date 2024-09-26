@@ -63,7 +63,7 @@ Click one of the links below to launch the project:
 **Register**  
 1. Navigate to the registration page at `/account/register.html`.
 2. Complete the registration form.
-3. Click the **"REGISTER"** button to create your account.
+3. Click the **"REGISTER"** button to create your account.  
 **Note:** Registering an account won't display blog posts. To edit, delete, or create posts, you must log in with rikand01864@stud.noroff.no due to endpoint restrictions.
 
 **Login**  
