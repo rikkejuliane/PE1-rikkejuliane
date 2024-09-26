@@ -81,7 +81,9 @@ function displayPost(post) {
         postBanner.alt = postData.media.alt || 'Post banner image';
         postBanner.style.display = 'block';
     } else {
-        postBanner.style.display = 'none';
+        postBanner.src = '/assets/placeholderimg.jpg';
+        postBanner.alt = 'Placeholder image';
+        postBanner.style.display = 'block';
     }
 
     // 2. Display post title
