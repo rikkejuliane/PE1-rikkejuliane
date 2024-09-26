@@ -1,6 +1,6 @@
 # FED1 Project Exam 1 - Rikkejuliane
 ![Logo for The Mediterranean Dream](https://github.com/user-attachments/assets/c74b44c8-cf85-4030-87a3-b8e97baff852)
-
+<img src="https://github.com/user-attachments/assets/c74b44c8-cf85-4030-87a3-b8e97baff852" alt="Logo for The Mediterranean Dream" width="600px">
 ### Table of Contents 
 
 ### Project Overview
