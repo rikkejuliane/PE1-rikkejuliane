@@ -56,7 +56,7 @@ Admin Demo:
 
 ### Installation
 Click one of the links below to launch the project:  
-[Public View](https://pe1-rikkejuliane.netlify.app/)
+[Public View](https://pe1-rikkejuliane.netlify.app/)  
 [Admin View](https://pe1-rikkejuliane.netlify.app/account/login.html)
 
 ### Usage
