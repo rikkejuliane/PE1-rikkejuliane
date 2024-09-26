@@ -1,82 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>The Mediterranean Dream - Create new post</title>
-        <meta name="description" content="The Mediterranean Dream - Create new post">
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/newpost.css">
-        <script type="module" src="/js/editor.mjs"></script>
-        <script src="/assets/tinymce/tinymce.min.js"></script>
-    </head>
-    <body>
-        <header>
-            <div class="main-banner">
-                <a href="/index.html">
-                    <img class="banner-logo" src="/assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
-                </a>
-                <h1 class="h1-banner">
-                    Create a new blogpost
-                </h1>
-            </div>
-        </header>
-        <main>
-            <section class="section1-post">
-                <a class="orange-round-btn" href="/post/edit.html">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="19"
-                        height="19"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            fill="none"
-                            stroke="black"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="4"
-                            d="m14 5l-7 7l7 7"
-                        />
-                    </svg>
-                </a>
-            </section>
-            <section class="container">
-                <label for="image-url">Image banner URL:</label>
-                <input type="url" id="image-url" placeholder="Enter an image URL">
-                <label for="title">Title:</label>
-                <input
-                    type="text"
-                    id="title"
-                    placeholder="Enter post title"
-                    required
-                >
-                <div id="page-spinner" class="dot-spinner" style="display: none;">
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                </div>
-                <div class="text-input-div">
-                    <div id="text-input"></div>
-                </div>
-                <div>
-                    <label for="tags">Tags:</label>
-                    <input type="text" id="tags" placeholder="Enter tags (separate with a commas)">
-                </div>
-                <button id="publish-btn">PUBLISH</button>
-            </section>
-            <div id="notification-box" class="notification hidden">
-                Blog post published successfully!
-            </div>
-        </main>
-        <footer></footer>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Mediterranean Dream - Create new post</title>
+    <meta
+      name="description"
+      content="The Mediterranean Dream - Create new post"
+    />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/newpost.css" />
+    <script type="module" src="/js/editor.mjs"></script>
+    <script src="/assets/tinymce/tinymce.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="main-banner">
+        <a href="/index.html">
+          <img
+            class="banner-logo"
+            src="/assets/MEDITERRANEANlogo.png"
+            alt="The Mediterranean Dream Logo"
+          />
+        </a>
+        <h1 class="h1-banner">Create a new blogpost</h1>
+      </div>
+    </header>
+    <main>
+      <section class="section1-post">
+        <a class="orange-round-btn" href="/post/edit.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="black"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="4"
+              d="m14 5l-7 7l7 7"
+            />
+          </svg>
+        </a>
+      </section>
+      <section class="container">
+        <label for="image-url">Image banner URL:</label>
+        <input type="url" id="image-url" placeholder="Enter an image URL" />
+        <label for="title">Title:</label>
+        <input type="text" id="title" placeholder="Enter post title" required />
+        <div id="page-spinner" class="dot-spinner" style="display: none">
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+        </div>
+        <div class="text-input-div">
+          <div id="text-input"></div>
+        </div>
+        <div>
+          <label for="tags">Tags:</label>
+          <input
+            type="text"
+            id="tags"
+            placeholder="Enter tags (separate with a commas)"
+          />
+        </div>
+        <button id="publish-btn">PUBLISH</button>
+      </section>
+      <div id="notification-box" class="notification hidden">
+        Blog post published successfully!
+      </div>
+    </main>
+    <footer></footer>
+  </body>
 </html>

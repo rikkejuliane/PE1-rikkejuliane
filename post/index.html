@@ -1,97 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>The Mediterranean Dream - Blog post</title>
-        <meta name="description" content="The Mediterranean Dream - A blog about the Mediterranean lifestyle and travels">
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/blogpost.css">
-        <script type="module" src="../js/post.mjs"></script>
-    </head>
-    <body>
-        <header>
-            <div class="main-banner">
-                <a href="/index.html">
-                    <img class="banner-logo" src="/assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
-                </a>
-                <a href="/account/login.html" id="login-link">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="50"
-                        height="50"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            fill="none"
-                            stroke="white"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1"
-                            d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 1 1-6 0a3 3 0 0 1 6 0"
-                        />
-                    </svg>
-                </a>
-            </div>
-        </header>
-        <main>
-            <article id="post-content">
-                <img id="post-banner" src="/assets/placeholderimg.jpg" alt="Post banner image" style="display: none;">
-                <a href="/index.html">
-                    <svg
-                        class="back-btn"
-                        width="35"
-                        height="35"
-                        viewBox="0 0 35 35"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <circle
-                            cx="17.5"
-                            cy="17.5"
-                            r="17.5"
-                            transform="matrix(-1 0 0 1 35 0)"
-                            fill="#D96C4A"
-                            fill-opacity="0.9"
-                        />
-                        <path
-                            d="M19.0552 12.0556L13.6107 17.5L19.0552 22.9445"
-                            stroke="black"
-                            stroke-width="2.33333"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                </a>
-                <h1 id="post-title"></h1>
-                <div id="post-body"></div>
-                <div id="post-meta"></div>
-                <div id="post-spinner" class="dot-spinner" style="display: none;">
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                    <div class="dot-spinner__dot"></div>
-                </div>
-            </article>
-        </main>
-        <footer class="footer">
-            <div class="footer-logo">
-                <a href="/index.html">
-                    <img src="/assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
-                </a>
-            </div>
-            <div class="footer-center">
-                <p class="p-footer">© Copyright 2024</p>
-            </div>
-            <p class="p-footer">
-                <a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a>
-            </p>
-        </footer>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Mediterranean Dream - Blog post</title>
+    <meta
+      name="description"
+      content="The Mediterranean Dream - A blog about the Mediterranean lifestyle and travels"
+    />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/blogpost.css" />
+    <script type="module" src="../js/post.mjs"></script>
+  </head>
+  <body>
+    <header>
+      <div class="main-banner">
+        <a href="/index.html">
+          <img
+            class="banner-logo"
+            src="/assets/MEDITERRANEANlogo.png"
+            alt="The Mediterranean Dream Logo"
+          />
+        </a>
+        <a href="/account/login.html" id="login-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="white"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 1 1-6 0a3 3 0 0 1 6 0"
+            />
+          </svg>
+        </a>
+      </div>
+    </header>
+    <main>
+      <article id="post-content">
+        <img
+          id="post-banner"
+          src="/assets/placeholderimg.jpg"
+          alt="Post banner image"
+          style="display: none"
+        />
+        <a href="/index.html">
+          <svg
+            class="back-btn"
+            width="35"
+            height="35"
+            viewBox="0 0 35 35"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="17.5"
+              cy="17.5"
+              r="17.5"
+              transform="matrix(-1 0 0 1 35 0)"
+              fill="#D96C4A"
+              fill-opacity="0.9"
+            />
+            <path
+              d="M19.0552 12.0556L13.6107 17.5L19.0552 22.9445"
+              stroke="black"
+              stroke-width="2.33333"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+        <h1 id="post-title"></h1>
+        <div id="post-body"></div>
+        <div id="post-meta"></div>
+        <div id="post-spinner" class="dot-spinner" style="display: none">
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+        </div>
+      </article>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <a href="/index.html">
+          <img
+            src="/assets/MEDITERRANEANlogo.png"
+            alt="The Mediterranean Dream Logo"
+          />
+        </a>
+      </div>
+      <div class="footer-center">
+        <p class="p-footer">© Copyright 2024</p>
+      </div>
+      <p class="p-footer">
+        <a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a>
+      </p>
+    </footer>
+  </body>
 </html>

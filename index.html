@@ -1,127 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>The Mediterranean Dream</title>
-        <meta name="description" content="The Mediterranean Dream - A blog about the Mediterranean lifestyle and travels">
-        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-        <link rel="stylesheet" href="./css/styles.css">
-        <link rel="stylesheet" href="./css/index.css">
-        <script type="module" src="./js/index.mjs"></script>
-    </head>
-    <body>
-        <header>
-            <div class="main-banner">
-                <a href="./index.html">
-                    <img class="banner-logo" src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
-                </a>
-                <a href="./account/login.html" id="login-link">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="50"
-                        height="50"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            fill="none"
-                            stroke="white"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1"
-                            d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 1 1-6 0a3 3 0 0 1 6 0"
-                        />
-                    </svg>
-                </a>
-            </div>
-            <section class="hero">
-                <h1 class="h1-hero">
-                    <span class="h1-span">THE</span>
-                    <span class="h1-span">MEDITERRANEAN</span>
-                    <span class="h1-span">DREAM</span>
-                </h1>
-            </section>
-        </header>
-        <main>
-            <section class="section1-index">
-                <div>
-                    <h2 class="h2-welcome">
-                        <span class="h2-span">
-                            Welcome to
-                        </span>
-                        <span class="h2-span">
-                            The
-                            <strong>Mediterranean</strong>
-                            Dream
-                        </span>
-                    </h2>
-                    <p class="p-index">
-                        your virtual escape and dedicated
-                        <strong>blog</strong>
-                        celebrating the sun-kissed shores and timeless beauty of the Mediterranean. Whether you're dreaming of azure waters, historic villages, or mouthwatering cuisine - you're in the right place.
-                    </p>
-                    <p class="p-index">
-                        On this
-                        <strong>blog</strong>
-                        , we explore the vibrant cultures, stunning landscapes, and rich traditions of the Mediterranean region. Join us as we uncover hidden gems in Croatia, Italy, Greece, and beyond. Dive into our stories and let the Mediterranean spirit inspire your next adventure.
-                    </p>
-                </div>
-                <div>
-                    <img src="./assets/mukuko-studio-MQdkSBpWPho-unsplash1-min.jpg" alt="Weathered green door in a white stone building, partially shaded by a leafy tree, with terracotta pots nearby.">
-                </div>
-            </section>
-            <section class="carousel-section">
-                <h2 class="h2-posts">Latest Posts</h2>
-                <div id="carousel-root">
-                    <div id="carousel-spinner" class="dot-spinner" style="display: none;">
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                    </div>
-                </div>
-            </section>
-            <section class="main-blog-section">
-                <h2 class="h2-posts">
-                    Want to see more?
-                    <u>Read our blog below</u>
-                </h2>
-                <div class="blog-filter-container">
-                    <label for="blog-search" aria-label="Blog search"></label>
-                    <input type="text" id="blog-search" placeholder="Search...">
-                    <select id="blog-tags">
-                        <option value="">Tags</option>
-                    </select>
-                </div>
-                <div id="blog-grid" class="blog-grid">
-                    <div id="blog-spinner" class="dot-spinner" style="display: none;">
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                        <div class="dot-spinner__dot"></div>
-                    </div>
-                </div>
-                <div id="pagination" class="pagination"></div>
-            </section>
-        </main>
-        <footer class="footer">
-            <div class="footer-logo">
-                <a href="./index.html">
-                    <img src="./assets/MEDITERRANEANlogo.png" alt="The Mediterranean Dream Logo">
-                </a>
-            </div>
-            <p class="p-footer">© Copyright 2024</p>
-            <p class="p-footer">
-                <a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a>
-            </p>
-        </footer>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Mediterranean Dream</title>
+    <meta
+      name="description"
+      content="The Mediterranean Dream - A blog about the Mediterranean lifestyle and travels"
+    />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script type="module" src="./js/index.mjs"></script>
+  </head>
+  <body>
+    <header>
+      <div class="main-banner">
+        <a href="./index.html">
+          <img
+            class="banner-logo"
+            src="./assets/MEDITERRANEANlogo.png"
+            alt="The Mediterranean Dream Logo"
+          />
+        </a>
+        <a href="./account/login.html" id="login-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="white"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 1 1-6 0a3 3 0 0 1 6 0"
+            />
+          </svg>
+        </a>
+      </div>
+      <section class="hero">
+        <h1 class="h1-hero">
+          <span class="h1-span">THE</span>
+          <span class="h1-span">MEDITERRANEAN</span>
+          <span class="h1-span">DREAM</span>
+        </h1>
+      </section>
+    </header>
+    <main>
+      <section class="section1-index">
+        <div>
+          <h2 class="h2-welcome">
+            <span class="h2-span"> Welcome to </span>
+            <span class="h2-span">
+              The
+              <strong>Mediterranean</strong>
+              Dream
+            </span>
+          </h2>
+          <p class="p-index">
+            your virtual escape and dedicated
+            <strong>blog</strong>
+            celebrating the sun-kissed shores and timeless beauty of the
+            Mediterranean. Whether you're dreaming of azure waters, historic
+            villages, or mouthwatering cuisine - you're in the right place.
+          </p>
+          <p class="p-index">
+            On this
+            <strong>blog</strong>
+            , we explore the vibrant cultures, stunning landscapes, and rich
+            traditions of the Mediterranean region. Join us as we uncover hidden
+            gems in Croatia, Italy, Greece, and beyond. Dive into our stories
+            and let the Mediterranean spirit inspire your next adventure.
+          </p>
+        </div>
+        <div>
+          <img
+            src="./assets/mukuko-studio-MQdkSBpWPho-unsplash1-min.jpg"
+            alt="Weathered green door in a white stone building, partially shaded by a leafy tree, with terracotta pots nearby."
+          />
+        </div>
+      </section>
+      <section class="carousel-section">
+        <h2 class="h2-posts">Latest Posts</h2>
+        <div id="carousel-root">
+          <div id="carousel-spinner" class="dot-spinner" style="display: none">
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+          </div>
+        </div>
+      </section>
+      <section class="main-blog-section">
+        <h2 class="h2-posts">
+          Want to see more?
+          <u>Read our blog below</u>
+        </h2>
+        <div class="blog-filter-container">
+          <label for="blog-search" aria-label="Blog search"></label>
+          <input type="text" id="blog-search" placeholder="Search..." />
+          <select id="blog-tags">
+            <option value="">Tags</option>
+          </select>
+        </div>
+        <div id="blog-grid" class="blog-grid">
+          <div id="blog-spinner" class="dot-spinner" style="display: none">
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+          </div>
+        </div>
+        <div id="pagination" class="pagination"></div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-logo">
+        <a href="./index.html">
+          <img
+            src="./assets/MEDITERRANEANlogo.png"
+            alt="The Mediterranean Dream Logo"
+          />
+        </a>
+      </div>
+      <p class="p-footer">© Copyright 2024</p>
+      <p class="p-footer">
+        <a class="a-footer" href="mailto:tmd@blog.com">tmd@blog.com</a>
+      </p>
+    </footer>
+  </body>
 </html>

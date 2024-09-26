@@ -1,10 +1,10 @@
 .h1-banner {
-    color: #fff;
-    font-size: 30px;
+  color: #fff;
+  font-size: 30px;
 }
 
 .section1-post {
-  margin: 40px 0 0 40px ;
+  margin: 40px 0 0 40px;
 }
 
 label {
@@ -33,7 +33,7 @@ input {
 }
 
 .text-input-div {
- margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 #text-input {
@@ -79,7 +79,6 @@ input {
   margin: 0 auto;
   margin-top: 15px;
 }
-
 
 /* MEDIA QUERIES */
 /* mobile to small tablet */
