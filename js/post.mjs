@@ -1,58 +1,49 @@
-import { getPostApiEndpoint, defaultPublicUsername } from './api.mjs';  // Import defaultPublicUsername
-import { showLoader, hideLoader } from './loader.mjs';  // Import show/hide loader functions
+import { getPostApiEndpoint, defaultPublicUsername } from './api.mjs';
+import { showLoader, hideLoader } from './loader.mjs';
+import { showErrorNotification } from './errorMessage.mjs';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const accessToken = localStorage.getItem('accessToken');  // Get accessToken from localStorage
-    const username = localStorage.getItem('username') || defaultPublicUsername;  // Get username from localStorage
+    const accessToken = localStorage.getItem('accessToken');
+    const username = localStorage.getItem('username') || defaultPublicUsername;
 
-    // Get the login link element
     const loginLink = document.getElementById('login-link');
 
-    // Check if user is logged in by checking the accessToken
     if (accessToken) {
-        // User is logged in, update the login link to point to the edit page
         loginLink.href = '/post/edit.html';
-        console.log("User is logged in. Login link updated to /post/edit.html.");
     } else {
-        // User is not logged in, set the link to the login page
         loginLink.href = '/account/login.html';
-        console.log("User is not logged in. Login link remains to /account/login.html.");
     }
 
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const postId = urlParams.get('postId');  // Extract postId from the URL
-    const fromEdit = urlParams.get('fromEdit');  // Check if the user came from the edit page
+    const postId = urlParams.get('postId');
+    const fromEdit = urlParams.get('fromEdit');
 
-    // Get the back button element
     const backButton = document.querySelector('.back-btn').parentElement;
 
     // Check if the user is logged in and came from the edit page
     if (accessToken && fromEdit === 'true') {
-        backButton.href = '/post/edit.html';  // Redirect back to the edit page if the user came from edit
-        console.log("User came from the edit page. Back button redirects to edit page.");
+        backButton.href = '/post/edit.html';
     } else {
-        backButton.href = '/index.html';  // Otherwise, go back to the index page
-        console.log("User did not come from edit page or is not logged in. Back button redirects to index.");
+        backButton.href = '/index.html';
     }
 
     if (postId) {
-        showLoader('post-spinner');  // Show spinner while fetching post
-        await fetchAndDisplayPost(postId, username);  // Fetch and display the post
+        showLoader('post-spinner');
+        await fetchAndDisplayPost(postId, username);
     } else {
-        console.error("No postId found in the URL");
+        const errorMessage = "No postId found in the URL";
+        console.error(errorMessage);
+        showErrorNotification(errorMessage);
     }
 });
 
-// Function to fetch and display a single post on the page
+// Fetch and display a single post
 async function fetchAndDisplayPost(postId, username) {
     try {
-        const token = localStorage.getItem('accessToken');  // Get accessToken if logged in
-        const apiUrl = getPostApiEndpoint(username, postId);  // Use logged-in username or defaultPublicUsername
+        const token = localStorage.getItem('accessToken');
+        const apiUrl = getPostApiEndpoint(username, postId);
 
-        console.log("Fetching post from API endpoint:", apiUrl);
-
-        // Set up headers; only add Authorization if token exists
         const headers = { 'Content-Type': 'application/json' };
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
@@ -65,28 +56,26 @@ async function fetchAndDisplayPost(postId, username) {
         }
 
         const post = await response.json();
-        console.log("Fetched post data:", post);  // Log fetched post data
         displayPost(post);
 
     } catch (error) {
         console.error("Error fetching the post:", error);
+        showErrorNotification(`Error fetching the post: ${error.message}`);
     } finally {
-        hideLoader('post-spinner');  // Hide the spinner after loading the post
+        hideLoader('post-spinner');
     }
 }
 
-// Function to display the fetched post on the page
+// Display the fetched post on the page
 function displayPost(post) {
     const postTitle = document.getElementById('post-title');
     const postBanner = document.getElementById('post-banner');
     const postBody = document.getElementById('post-body');
     const postMeta = document.getElementById('post-meta');
 
-    console.log("Rendering post on the page:", post);
-
     const postData = post.data;
 
-    // 1. Display the banner image if available
+    // 1. Display banner image
     if (postBanner && postData.media && postData.media.url) {
         postBanner.src = postData.media.url;
         postBanner.alt = postData.media.alt || 'Post banner image';
@@ -95,17 +84,17 @@ function displayPost(post) {
         postBanner.style.display = 'none';
     }
 
-    // 2. Display the post title
+    // 2. Display post title
     if (postTitle) {
         postTitle.textContent = postData.title || 'Untitled';
     }
 
-    // 3. Display the post body
+    // 3. Display post body
     if (postBody) {
         postBody.innerHTML = postData.body || 'No content available';
     }
 
-    // 4. Display the post meta information
+    // 4. Display post meta
     if (postMeta) {
         const publishedDate = new Date(postData.created).toLocaleDateString();
         const authorName = postData.author ? postData.author.name : 'Unknown author';
@@ -119,7 +108,6 @@ function displayPost(post) {
             Author: ${authorName}</p>
         `;
 
-        // Add copy-to-clipboard functionality for the post URL
         const copyLink = document.getElementById('copy-link');
         const tooltipText = document.getElementById('tooltip-text');
 
@@ -134,6 +122,7 @@ function displayPost(post) {
                 })
                 .catch((err) => {
                     console.error('Failed to copy URL:', err);
+                    showErrorNotification('Failed to copy URL');
                 });
         });
     }

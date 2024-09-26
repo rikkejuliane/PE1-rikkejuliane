@@ -1,7 +1,8 @@
-import { getPostApiEndpoint, getDeletePostApiEndpoint } from './api.mjs';  // Import the correct API endpoint functions
-import { showLoader, hideLoader } from './loader.mjs';  // Import the loader functions
+import { getPostApiEndpoint, getDeletePostApiEndpoint } from './api.mjs';
+import { showLoader, hideLoader } from './loader.mjs';
+import { showErrorNotification } from './errorMessage.mjs';
 
-// Initialize TinyMCE for edit modal
+// TinyMCE for edit modal
 tinymce.init({
     selector: '#edit-text-input',
     menubar: false,
@@ -13,15 +14,17 @@ tinymce.init({
     content_style: "body { font-family: 'Mulish', sans-serif; padding: 15px; } ul, ol { padding-left: 20px; }"
 });
 
-// Function to fetch and display blog posts
+// Fetch and display blog posts
 async function fetchAndDisplayPosts() {
     try {
-        showLoader('page-spinner');  // Show spinner when fetching posts
+        showLoader('page-spinner');
         const token = localStorage.getItem('accessToken');
         const username = localStorage.getItem('username');
 
         if (!username || !token) {
-            console.error("Missing username or token");
+            const errorMessage = "Missing username or token";
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
             return;
         }
 
@@ -34,13 +37,15 @@ async function fetchAndDisplayPosts() {
         });
 
         if (!response.ok) {
-            console.error("Failed to fetch posts", response.statusText);
+            const errorMessage = `Failed to fetch posts: ${response.statusText}`;
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
             return;
         }
 
         const data = await response.json();
         const postGrid = document.getElementById('post-grid');
-        postGrid.innerHTML = '';  // Clear the grid before adding posts
+        postGrid.innerHTML = '';
 
         if (data.data && data.data.length > 0) {
             data.data.forEach(post => {
@@ -64,11 +69,10 @@ async function fetchAndDisplayPosts() {
                 postGrid.innerHTML += postCard;
             });
 
-            // Add event listener for view buttons
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.addEventListener('click', (event) => {
                     const postId = event.target.closest('.view-btn').dataset.id;
-                    window.location.href = `/post/index.html?postId=${postId}&fromEdit=true`;  // Append fromEdit=true to the URL
+                    window.location.href = `/post/index.html?postId=${postId}&fromEdit=true`;
                 });
             });
 
@@ -76,43 +80,44 @@ async function fetchAndDisplayPosts() {
             postGrid.innerHTML = '<p>No blog posts available.</p>';
         }
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        const errorMessage = 'Error fetching posts.';
+        console.error(errorMessage, error);
+        showErrorNotification(errorMessage);
     } finally {
-        hideLoader('page-spinner');  // Hide spinner when fetching is done
+        hideLoader('page-spinner');
     }
 }
 
-// Show the modal
+// Modal
 function showModal() {
     const modal = document.getElementById('edit-modal');
     modal.classList.remove('hidden');
     modal.style.display = 'flex';  // Ensure modal is visible
 }
 
-// Hide the modal
 function hideModal() {
     const modal = document.getElementById('edit-modal');
     modal.classList.add('hidden');
     modal.style.display = 'none';  // Ensure modal is hidden
 }
 
-// Attach click event to close button in the modal
 document.querySelector('.close').addEventListener('click', hideModal);
 
-// Attach event listeners to Edit buttons
 document.addEventListener('click', async (event) => {
     if (event.target.closest('.edit-btn')) {
         const postId = event.target.closest('.edit-btn').dataset.id;
-        const username = localStorage.getItem('username');  // Ensure you get the correct username
+        const username = localStorage.getItem('username');
         const token = localStorage.getItem('accessToken');
 
         if (!username || !token) {
-            console.error("Missing username or token");
+            const errorMessage = "Missing username or token";
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
             return;
         }
 
         try {
-            showLoader('page-spinner');  // Show spinner while fetching post details
+            showLoader('page-spinner');
             const apiEndpoint = getPostApiEndpoint(username, postId);
             const response = await fetch(apiEndpoint, {
                 method: 'GET',
@@ -122,7 +127,9 @@ document.addEventListener('click', async (event) => {
             });
 
             if (!response.ok) {
-                console.error("Failed to fetch post", response.statusText);
+                const errorMessage = `Failed to fetch post details: ${response.statusText}`;
+                console.error(errorMessage);
+                showErrorNotification(errorMessage);
                 return;
             }
 
@@ -146,14 +153,16 @@ document.addEventListener('click', async (event) => {
             saveEditBtn.removeEventListener('click', saveChanges);
             saveEditBtn.addEventListener('click', () => saveChanges(postId));
         } catch (error) {
-            console.error('Error fetching post details:', error);
+            const errorMessage = 'Error fetching post details.';
+            console.error(errorMessage, error);
+            showErrorNotification(errorMessage);
         } finally {
-            hideLoader('page-spinner');  // Hide spinner after post details are fetched
+            hideLoader('page-spinner');
         }
     }
 });
 
-// Function to save the edited post and show the notification
+// Save the edited post
 async function saveChanges(postId) {
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('accessToken');
@@ -167,7 +176,7 @@ async function saveChanges(postId) {
     };
 
     try {
-        showLoader('page-spinner');  // Show spinner when saving changes
+        showLoader('page-spinner');
         const response = await fetch(apiEndpoint, {
             method: 'PUT',
             headers: {
@@ -186,34 +195,66 @@ async function saveChanges(postId) {
             setTimeout(() => {
                 notificationBox.classList.remove('show');
                 notificationBox.classList.add('hidden');
-                window.location.reload();  // Reload page after showing notification
+                window.location.reload();
             }, 5000);
         } else {
             const errorData = await response.json();
-            alert(`Failed to update post: ${errorData.message || 'Unknown error'}`);
+            const errorMessage = `Failed to update post: ${errorData.message || 'Unknown error'}`;
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
         }
     } catch (error) {
-        console.error('Error updating post:', error);
+        const errorMessage = 'Error updating post.';
+        console.error(errorMessage, error);
+        showErrorNotification(errorMessage);
     } finally {
-        hideLoader('page-spinner');  // Hide spinner after saving changes
+        hideLoader('page-spinner');
     }
 }
 
-// Attach event listeners to Delete buttons
-document.addEventListener('click', (event) => {
-    const deleteBtn = event.target.closest('.delete-btn');
+// Delete post
+async function deletePost(postId) {
+    const username = localStorage.getItem('username');
+    const token = localStorage.getItem('accessToken');
+    const apiEndpoint = getDeletePostApiEndpoint(username, postId);
 
-    if (deleteBtn) {
-        const postId = deleteBtn.getAttribute('data-id');
-        if (postId) {
-            showDeleteConfirmation(postId);
+    try {
+        showLoader('page-spinner');
+        const response = await fetch(apiEndpoint, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+
+        if (response.status === 204) {
+
+            document.querySelector(`.delete-btn[data-id="${postId}"]`).closest('.post-card').remove();
+
+            const notificationBox = document.getElementById('notification-box');
+            notificationBox.textContent = 'Post deleted successfully!';
+            notificationBox.classList.remove('hidden');
+            notificationBox.classList.add('show');
+
+            setTimeout(() => {
+                notificationBox.classList.remove('show');
+                notificationBox.classList.add('hidden');
+            }, 3000);
         } else {
-            console.error('No post ID found for delete button');
+            const errorMessage = 'Failed to delete the post. Server error.';
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
         }
+    } catch (error) {
+        const errorMessage = 'Error deleting post.';
+        console.error(errorMessage, error);
+        showErrorNotification(errorMessage);
+    } finally {
+        hideLoader('page-spinner');
     }
-});
+}
 
-// Function to show delete confirmation box
+// Show delete confirmation box
 function showDeleteConfirmation(postId) {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
     deleteConfirmBox.classList.remove('hidden');
@@ -233,52 +274,26 @@ function showDeleteConfirmation(postId) {
     document.getElementById('confirm-delete-no').addEventListener('click', hideDeleteConfirmation);
 }
 
-// Function to hide delete confirmation box
 function hideDeleteConfirmation() {
     const deleteConfirmBox = document.getElementById('delete-confirm-box');
     deleteConfirmBox.classList.remove('show');
     deleteConfirmBox.classList.add('hidden');
 }
 
-// Function to delete the post
-async function deletePost(postId) {
-    const username = localStorage.getItem('username');
-    const token = localStorage.getItem('accessToken');
-    const apiEndpoint = getDeletePostApiEndpoint(username, postId);
-
-    try {
-        showLoader('page-spinner');  // Show spinner when deleting post
-        const response = await fetch(apiEndpoint, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        });
-
-        if (response.status === 204) {
-            document.querySelector(`.delete-btn[data-id="${postId}"]`).closest('.post-card').remove();
-
-            const notificationBox = document.getElementById('notification-box');
-            notificationBox.textContent = 'Post deleted successfully!';
-            notificationBox.classList.remove('hidden');
-            notificationBox.classList.add('show');
-
-            setTimeout(() => {
-                notificationBox.classList.remove('show');
-                notificationBox.classList.add('hidden');
-            }, 3000);
+document.addEventListener('click', (event) => {
+    const deleteBtn = event.target.closest('.delete-btn');
+    if (deleteBtn) {
+        const postId = deleteBtn.getAttribute('data-id');
+        if (postId) {
+            showDeleteConfirmation(postId);
         } else {
-            throw new Error('Failed to delete the post.');
+            const errorMessage = 'No post ID found for delete button';
+            console.error(errorMessage);
+            showErrorNotification(errorMessage);
         }
-    } catch (error) {
-        console.error('Error deleting post:', error);
-        alert('An error occurred while deleting the post.');
-    } finally {
-        hideLoader('page-spinner');  // Hide spinner after deleting post
     }
-}
+});
 
-// Call the function to fetch and display posts when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('username');
     if (username) {
@@ -291,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutButton.addEventListener('click', () => logoutUser());
 });
 
-// Function to log out the user
+// Logout
 function logoutUser() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');

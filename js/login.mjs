@@ -1,5 +1,5 @@
 import { LOGIN_API_ENDPOINT } from "./api.mjs";
-import { showLoader, hideLoader } from './loader.mjs'; // Import loader functions
+import { showLoader, hideLoader } from './loader.mjs';
 
 const loginForm = document.querySelector('#login-form');
 const emailInput = document.querySelector('#email-input');
@@ -16,10 +16,10 @@ async function loginUser() {
     const email = emailInput.value;
     const password = pswInput.value;
 
-    // Show spinner and disable the button
-    signInBtn.disabled = true; // Disable the button to prevent multiple clicks
-    signInBtn.querySelector('span').style.display = 'none'; // Hide the text
-    showLoader('button-spinner'); // Use loader.mjs to show the spinner
+
+    signInBtn.disabled = true;
+    signInBtn.querySelector('span').style.display = 'none';
+    showLoader('button-spinner');
 
     try {
         const customOption = {
@@ -38,23 +38,21 @@ async function loginUser() {
         if (response.ok && json.data && json.data.accessToken) {
             const accessToken = json.data.accessToken;
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('username', json.data.name); // Save username to localStorage
+            localStorage.setItem('username', json.data.name);
             window.location.href = '/post/edit.html';
         } else {
-            // Handle login error
             const errorMessage = json.message || 'Login failed. Please check your email and password.';
             loginErrorElement.innerHTML = errorMessage;
-            loginErrorElement.style.color = 'red'; // Show the error message in red
+            loginErrorElement.style.color = 'red';
         }
     } catch (error) {
         console.error('Error occurred during login', error);
         const errorMessage = 'An error occurred while connecting to the server. Please try again later.';
         loginErrorElement.innerHTML = errorMessage;
-        loginErrorElement.style.color = 'red'; // Show the error message in red
+        loginErrorElement.style.color = 'red';
     } finally {
-        // Reset button state
-        signInBtn.disabled = false; // Re-enable the button
-        signInBtn.querySelector('span').style.display = 'inline-block'; // Show the text again
-        hideLoader('button-spinner'); // Use loader.mjs to hide the spinner
+        signInBtn.disabled = false;
+        signInBtn.querySelector('span').style.display = 'inline-block';
+        hideLoader('button-spinner');
     }
 }

@@ -1,5 +1,5 @@
 import { REGISTER_API_ENDPOINT } from "./api.mjs";
-import { showLoader, hideLoader } from './loader.mjs'; // Import loader functions
+import { showLoader, hideLoader } from './loader.mjs';
 
 const registerForm = document.querySelector('#register-form');
 const emailInput = document.querySelector('#email-input');
@@ -17,10 +17,9 @@ async function registerUser() {
     const name = nameInput.value;
     const password = pswInput.value;
 
-    // Show spinner and disable the button
-    registerBtn.disabled = true; // Disable the button to prevent multiple clicks
-    registerBtn.querySelector('span').style.display = 'none'; // Hide the text
-    showLoader('register-button-spinner'); // Use loader.mjs to show the spinner
+    registerBtn.disabled = true;
+    registerBtn.querySelector('span').style.display = 'none';
+    showLoader('register-button-spinner');
 
     try {
         const customOption = {
@@ -40,32 +39,29 @@ async function registerUser() {
         const registerLogElement = document.getElementById('p-error');
 
         if (response.ok && json.data) {
-            localStorage.setItem('username', name); // Save username to localStorage
+            localStorage.setItem('username', name);
 
-            // Change the <p> element's content to show a success message
             registerLogElement.innerHTML = 'You have successfully registered!';
-            registerLogElement.style.color = 'green'; // Success message in green
+            registerLogElement.style.color = 'green';
         } else if (response.status === 400 && json.errors && json.errors[0].message === "Profile already exists") {
-            // Checking for the specific "Profile already exists" message
             const errorMessage = 'This user already exists.';
             registerLogElement.innerHTML = errorMessage;
-            registerLogElement.style.color = 'red'; // Error message in red
+            registerLogElement.style.color = 'red';
         } else {
             console.error('Registration failed', json);
             const errorMessage = json.errors && json.errors[0].message ? json.errors[0].message : 'An unknown error occurred during registration.';
             registerLogElement.innerHTML = errorMessage;
-            registerLogElement.style.color = 'red'; // General error message in red
+            registerLogElement.style.color = 'red';
         }
     } catch (error) {
         console.log('Error occurred during registration', error);
         const errorMessage = 'An error occurred while connecting to the server. Please try again later.';
         const registerLogElement = document.getElementById('p-error');
         registerLogElement.innerHTML = errorMessage;
-        registerLogElement.style.color = 'red'; // Network error message in red
+        registerLogElement.style.color = 'red';
     } finally {
-        // Reset button state
-        registerBtn.disabled = false; // Re-enable the button
-        registerBtn.querySelector('span').style.display = 'inline-block'; // Show the text again
-        hideLoader('register-button-spinner'); // Use loader.mjs to hide the spinner
+        registerBtn.disabled = false;
+        registerBtn.querySelector('span').style.display = 'inline-block';
+        hideLoader('register-button-spinner');
     }
 }

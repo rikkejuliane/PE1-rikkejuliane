@@ -1,157 +1,146 @@
-import { getAllPostsApiEndpoint, defaultPublicUsername } from './api.mjs'; 
+import { getAllPostsApiEndpoint, defaultPublicUsername } from "./api.mjs";
+import { showErrorNotification } from "./errorMessage.mjs"; // Import the notification function
 
-// Function to fetch the latest 6 posts
+// Fetch the 6 latest blogposts
 export async function fetchLatestPosts(username) {
-    try {
-        const token = localStorage.getItem('accessToken');
-        const headers = { 'Content-Type': 'application/json' };
+  try {
+    const token = localStorage.getItem("accessToken");
+    const headers = { "Content-Type": "application/json" };
 
-        // Only add authorization if token exists and the user is logged in
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-
-        // Use the logged-in user's username or default public username if logged out
-        const apiEndpoint = getAllPostsApiEndpoint(username || defaultPublicUsername);
-
-        const response = await fetch(apiEndpoint, {
-            method: 'GET',
-            headers
-        });
-
-        if (!response.ok) {
-            console.error(`Error fetching blog posts: ${response.status}`);
-            return [];
-        }
-
-        const result = await response.json();
-        console.log("Fetched posts:", result.data);  // Debugging log for fetched posts
-        return result.data ? result.data.slice(0, 6) : [];  // Return latest 6 posts or empty array
-    } catch (error) {
-        console.error("Error fetching blog posts:", error);
-        return [];
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
     }
+
+    const apiEndpoint = getAllPostsApiEndpoint(
+      username || defaultPublicUsername
+    );
+
+    const response = await fetch(apiEndpoint, {
+      method: "GET",
+      headers,
+    });
+
+    if (!response.ok) {
+      const errorMessage = `Error fetching blog posts: ${response.status}`;
+      console.error(errorMessage);
+      showErrorNotification(errorMessage); // Show error to the user
+      return [];
+    }
+
+    const result = await response.json();
+    return result.data ? result.data.slice(0, 6) : [];
+  } catch (error) {
+    const errorMessage = "Error fetching blog posts.";
+    console.error(errorMessage, error);
+    showErrorNotification(errorMessage); // Show error to the user
+    return [];
+  }
 }
 
-// Function to create and display the carousel with the fetched posts
+// Display the carousel
 export function createCarousel(posts) {
-    console.log("Posts for carousel:", posts);  // Debugging log for posts in carousel
+  if (posts.length === 0) {
+    showErrorNotification("No posts to display in the carousel."); // Notify user if no posts
+    return;
+  }
 
-    if (posts.length === 0) {
-        console.log("No posts to display in the carousel.");
-        return;
-    }
+  const carouselContainer = document.createElement("div");
+  carouselContainer.className = "carousel-container";
 
-    const carouselContainer = document.createElement('div');
-    carouselContainer.className = 'carousel-container';
+  const slidesWrapper = document.createElement("div");
+  slidesWrapper.className = "slides-wrapper";
 
-    const slidesWrapper = document.createElement('div');
-    slidesWrapper.className = 'slides-wrapper';
+  posts.forEach((post) => {
+    const slide = document.createElement("div");
+    slide.className = "carousel-slide";
 
-    posts.forEach((post) => {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-
-        // Only include an image if the post has a media URL
-        if (post.media && post.media.url) {
-            slide.innerHTML = `
+    if (post.media && post.media.url) {
+      slide.innerHTML = `
                 <img src="${post.media.url}" alt="${post.title}" />
                 <div class="carousel-text-wrapper">
                     <p>${post.title}</p>
                 </div>
             `;
-        } else {
-            slide.innerHTML = `
+    } else {
+      slide.innerHTML = `
                 <div class="carousel-text-wrapper">
                     <p>${post.title}</p>
                 </div>
             `;
-        }
+    }
 
-        slide.addEventListener('click', () => {
-            window.location.href = `/post/index.html?postId=${post.id}`;
-        });
-
-        slidesWrapper.appendChild(slide);
+    slide.addEventListener("click", () => {
+      window.location.href = `/post/index.html?postId=${post.id}`;
     });
 
-    carouselContainer.appendChild(slidesWrapper);
+    slidesWrapper.appendChild(slide);
+  });
 
-    // Create the dots and navigation buttons
-    const navigationContainer = document.createElement('div');
-    navigationContainer.className = 'navigation-container';
+  carouselContainer.appendChild(slidesWrapper);
 
-    const prevButton = document.createElement('button');
-    prevButton.className = 'carousel-prev';
-    prevButton.innerHTML = '&lt;';
-    prevButton.addEventListener('click', prevSlide);
+  // Dots and navigation buttons
+  const navigationContainer = document.createElement("div");
+  navigationContainer.className = "navigation-container";
 
-    const nextButton = document.createElement('button');
-    nextButton.className = 'carousel-next';
-    nextButton.innerHTML = '&gt;';
-    nextButton.addEventListener('click', nextSlide);
+  const prevButton = document.createElement("button");
+  prevButton.className = "carousel-prev";
+  prevButton.innerHTML = "&lt;";
+  prevButton.addEventListener("click", prevSlide);
 
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'dots-container';
-    for (let i = 0; i < 3; i++) {  // 3 dots for 3 sets of 2 slides
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        dot.addEventListener('click', () => navigateToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
+  const nextButton = document.createElement("button");
+  nextButton.className = "carousel-next";
+  nextButton.innerHTML = "&gt;";
+  nextButton.addEventListener("click", nextSlide);
 
-    navigationContainer.appendChild(prevButton);
-    navigationContainer.appendChild(dotsContainer);
-    navigationContainer.appendChild(nextButton);
+  const dotsContainer = document.createElement("div");
+  dotsContainer.className = "dots-container";
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.addEventListener("click", () => navigateToSlide(i));
+    dotsContainer.appendChild(dot);
+  }
 
-    carouselContainer.appendChild(navigationContainer);
+  navigationContainer.appendChild(prevButton);
+  navigationContainer.appendChild(dotsContainer);
+  navigationContainer.appendChild(nextButton);
+  carouselContainer.appendChild(navigationContainer);
 
-    document.querySelector('#carousel-root').appendChild(carouselContainer);
+  document.querySelector("#carousel-root").appendChild(carouselContainer);
 
-    let currentIndex = 0;
+  let currentIndex = 0;
 
-    // Functions for carousel navigation
-    function navigateToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + 3) % 3;  // Navigate through 3 sets
-        updateCarousel();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % 3;
-        updateCarousel();
-    }
-
-    function updateCarousel() {
-        const slide = document.querySelector('.carousel-slide');
-        const slidesWrapper = document.querySelector('.slides-wrapper');
-        
-        // Get the slide width
-        const slideWidth = slide.offsetWidth;
-    
-        // Get the gap from the CSS (specifically from the flex container)
-        const gap = parseInt(window.getComputedStyle(slidesWrapper).getPropertyValue('gap')) || 0;
-    
-        // Calculate the total width to move (slide width + gap)
-        const totalWidth = slideWidth + gap;
-    
-        // Move by the total width of two slides
-        const offset = -currentIndex * 2 * totalWidth;
-    
-        // Apply the transform to slide the wrapper
-        slidesWrapper.style.transform = `translateX(${offset}px)`;
-    
-        // Update active dots
-        document.querySelectorAll('.dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    
-    }
-
-    // Initialize the carousel
+  function navigateToSlide(index) {
+    currentIndex = index;
     updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + 3) % 3;
+    updateCarousel();
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % 3;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    const slide = document.querySelector(".carousel-slide");
+    const slidesWrapper = document.querySelector(".slides-wrapper");
+    const slideWidth = slide.offsetWidth;
+    const gap =
+      parseInt(
+        window.getComputedStyle(slidesWrapper).getPropertyValue("gap")
+      ) || 0;
+    const totalWidth = slideWidth + gap;
+    const offset = -currentIndex * 2 * totalWidth;
+
+    slidesWrapper.style.transform = `translateX(${offset}px)`;
+    document.querySelectorAll(".dot").forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentIndex);
+    });
+  }
+
+  updateCarousel();
 }
