@@ -11,7 +11,7 @@
     - [Register](#register)
     - [Login](#login)
     - [Create a New Blogpost](#create-a-new-blogpost)
-7. [Tech Used 💻](#tech-used-)
+7. [Tech Used](#tech-used-)
 8. [Other](#other)
 
 
