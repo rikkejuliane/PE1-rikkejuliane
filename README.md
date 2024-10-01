@@ -12,7 +12,8 @@
     - [Login](#login)
     - [Create a New Blogpost](#create-a-new-blogpost)
 7. [Tech Used](#tech-used-)
-8. [Other](#other)
+8. [Contact me](#contact-me)
+9. [Other](#other)
 
 
 ### Project Overview 🌍  
@@ -85,6 +86,12 @@ Click one of the links below to launch the project:
 * Noroff Blog API
 * Netlify (For deployment)
 * TinyMCE
+
+
+### Contact me 🙋🏽‍♀️  
+Don’t hesitate to reach out to me or connect with me on social media if you have any questions, collaboration ideas, or an exciting new project in mind. I’m always open to new opportunities!   
+🩷 [Instagram](https://www.instagram.com/rikkejuliane/)  
+💙 [Linkedin](https://www.linkedin.com/in/rikkejuliane/)  
 
 
 #### Other 📎  
