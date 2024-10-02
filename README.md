@@ -8,9 +8,9 @@
 4. [Key Features](#key-features-)
 5. [Installation](#installation-)
 6. [Usage](#usage-)
-    - [Register](#-register)
-    - [Login](#-login)
-    - [Create a New Blogpost](#-create-a-new-blogpost)
+    - [Register](#register-)
+    - [Login](#login-)
+    - [Create a New Blogpost](#create-a-new-blogpost-)
 7. [Tech Used](#tech-used-)
 8. [Contact me](#contact-me-)
 9. [Other](#other-)
@@ -61,20 +61,20 @@ Click one of the links below to launch the project:
 🔐 [Admin View](https://pe1-rikkejuliane.netlify.app/account/login.html)
 
 ### Usage 🛠️  
-✍️ **Register**  
+**Register** ✍️  
 1. Navigate to the registration page at `/account/register.html`.
 2. Complete the registration form.
 3. Click the **"REGISTER"** button to create your account.  
 **Note:** Registering an account won't display blog posts. To edit, delete, or create posts, you must log in with rikand01864@stud.noroff.no due to endpoint restrictions.
 
 
-🔑 **Login**  
+**Login** 🔑  
 1. Navigate to the login page at `/account/login.html`.
 2. Enter your email and password.
 3. Click the **"LOGIN"** button.
 
 
-📝 **Create a New Blogpost**  
+**Create a New Blogpost** 📝  
 1. Navigate to `/post/new/index.html`
 2. Fill out the form and TinyMCE editor.
 3. Click **"PUBLISH"** to create a new post.
