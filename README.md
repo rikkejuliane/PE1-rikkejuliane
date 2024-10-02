@@ -7,7 +7,7 @@
 3. [Demo](#demo-)
 4. [Key Features](#key-features-)
 5. [Installation](#installation-)
-6. [Usage](#usage-)
+6. [Usage](#usage)
 7. [Tech Used](#tech-used-)
 8. [Contact me](#contact-me-)
 9. [Other](#other-)
