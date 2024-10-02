@@ -2,12 +2,12 @@
 <img src="https://github.com/user-attachments/assets/c74b44c8-cf85-4030-87a3-b8e97baff852" alt="Logo for The Mediterranean Dream" width="600px">
 
 ### Table of Contents 📚    
-1. [Project Overview](#project-overview)
-2. [Client](#client)
-3. [Demo](#demo)
-4. [Key Features](#key-features)
-5. [Installation](#installation)
-6. [Usage](#usage)
+1. [Project Overview](#project-overview-)
+2. [Client](#client-)
+3. [Demo](#demo-)
+4. [Key Features](#key-features-)
+5. [Installation](#installation-)
+6. [Usage](#usage-)
     - [Register](#register)
     - [Login](#login)
     - [Create a New Blogpost](#create-a-new-blogpost)
