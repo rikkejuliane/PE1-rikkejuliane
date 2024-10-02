@@ -22,7 +22,7 @@ You have been hired to develop a responsive front-end interface for a blogging a
 This project is for The Mediterranean Dream, a travel-focused blog aimed at inspiring readers to explore the Mediterranean's diverse culture and beauty.
 
 
-## Client 🌴  
+### Client 🌴  
 *  **Name**: The Mediterranean Dream
 * **Sector**: Travel
 * **Size**: 1 Blogger
